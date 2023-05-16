@@ -1,0 +1,49 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
+public class CheckPointItem : MonoBehaviour
+{
+
+
+    public float nDistanceX, nDistanceY, nDistanceZ;
+    public List<float> nDistChk = new List<float>();
+    public int nCheckpointNumber;
+    private void Start()
+    {
+        nDistChk.Clear();
+
+        for (int i = 0; i <= TableRacers.instance.cars.Count; i++)
+        {
+            nDistChk.Add(0);
+        }
+    }
+
+    void Update()
+    {
+        for (int i = 0; i < TableRacers.instance.cars.Count; i++)
+        {
+            //чекпоинты которые поидеи надо обновлять           //номер чекпоинта 
+            if (TableRacers.instance.CheckPoints.CarPositions[i].currentNumberCheckpoint == nCheckpointNumber)
+            {
+                nDistanceZ = this.GetComponent<Transform>().position.z - TableRacers.instance.CheckPoints.CarsGo[i].GetComponent<Transform>().position.z;
+                nDistanceY = this.GetComponent<Transform>().position.y - TableRacers.instance.CheckPoints.CarsGo[i].GetComponent<Transform>().position.y;
+                nDistanceX = this.GetComponent<Transform>().position.x - TableRacers.instance.CheckPoints.CarsGo[i].GetComponent<Transform>().position.x;
+                nDistChk[i] = (float)(Math.Sqrt(Math.Pow(nDistanceX, 2) + Math.Pow(nDistanceY, 2) + Math.Pow(nDistanceZ, 2)));
+                TableRacers.instance.CheckPoints.CarPositions[i].SetDistanceToPosition(nDistChk[i]);
+
+            }
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        var car = other.GetComponentInParent<CarControllerPro>();
+        if (car != null)
+        {
+            var index = TableRacers.instance.CheckPoints.CarsGo.IndexOf(car.gameObject);
+            TableRacers.instance.CheckPoints.CarPositions[index].SetNumberCheckPoint( nCheckpointNumber + 1);
+        }
+    }
+}

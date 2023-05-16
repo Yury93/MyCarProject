@@ -1,0 +1,27 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+
+public class TableRacerItem : MonoBehaviour
+{
+    [SerializeField] private string name;
+    [SerializeField] private TextMeshProUGUI nameText, placeText;
+    [SerializeField] private int place;
+    [SerializeField] private CarControllerPro carControllerPro;
+    public string Name => name;
+    public int Place => place;
+    public CarControllerPro Car => carControllerPro;
+    public void Init(CarControllerPro car)
+    {
+        this.name = car.name;
+        nameText.text = car.name;
+        carControllerPro = car;
+    }
+    public void SetPlace(int place)
+    {
+        this.place = place;
+        placeText.text = place.ToString();
+    }
+   
+}
