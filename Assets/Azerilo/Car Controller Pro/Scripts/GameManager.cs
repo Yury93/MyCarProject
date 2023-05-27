@@ -3,6 +3,8 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System;
+using Cinemachine;
+using System.Collections;
 
 /*
     GameManager class is the main class for getting input from the user and also updating UI elements
@@ -17,6 +19,8 @@ public class GameManager : MonoBehaviour
         gyroscope,
         wheel
     }
+    public Cinemachine.CinemachineVirtualCamera virtualCamera;
+    Cinemachine.CinemachineTransposer transposer;
 
    public controllerType controller = controllerType.ArrowKeys;   // Set the default controller type
     public Transform startPosition;                         // Start position of the car. The car appears and the positon and rotation of this variable
@@ -43,8 +47,8 @@ public class GameManager : MonoBehaviour
 
     public steerWheel sw;                                   // Reference to the steerWheel class
 
-    Transform[] cameras = new Transform[4];                 // We have 4 cameras in the scene. Two of them are in the car game object
-    int activeCameraIndex = 0;                              // Current active camera. Always one camera should be active in the scene
+    //Transform[] cameras = new Transform[4];                 // We have 4 cameras in the scene. Two of them are in the car game object
+    //int activeCameraIndex = 0;                              // Current active camera. Always one camera should be active in the scene
 
     public Transform[] controls = new Transform[4];         // Reference to 4 controller types in the game
     int activeControlIndex = 0;                             // Current active controller
@@ -62,19 +66,22 @@ public class GameManager : MonoBehaviour
 
     Transform car;
     CarControllerPro player;
+    public int startGameDelay;
+    public static GameManager instance;
     // Current instantiated car 
 
     private void Awake()
     {
+        instance = this;
         // Assign scene cameras
-        if (GameObject.Find("CarCameraRig Back Near") != null)
-            cameras[0] = GameObject.Find("CarCameraRig Back Near").transform;
+        //if (GameObject.Find("CarCameraRig Back Near") != null)
+        //    cameras[0] = GameObject.Find("CarCameraRig Back Near").transform;
 
-        if (GameObject.Find("CarCameraRig above") != null)
-            cameras[3] = GameObject.Find("CarCameraRig above").transform;
+        //if (GameObject.Find("CarCameraRig above") != null)
+        //    cameras[3] = GameObject.Find("CarCameraRig above").transform;
 
-        // Disable above camera. just cameras[0] remains active in the scene 
-        cameras[3].gameObject.SetActive(false);
+        //// Disable above camera. just cameras[0] remains active in the scene 
+        //cameras[3].gameObject.SetActive(false);
 
     }
 
@@ -92,6 +99,21 @@ public class GameManager : MonoBehaviour
         {
 
         }
+        TableRacers.instance.Init(player);
+        StartCoroutine(StartGameDelay());
+     
+    }
+    IEnumerator StartGameDelay()
+    {
+        while (startGameDelay > 0)
+        {
+            yield return new WaitForSeconds(1f);
+            startGameDelay --;
+
+            //timeText
+        }
+        startGameDelay = 0;
+        //timeText
     }
     void Update()
     {
@@ -105,6 +127,8 @@ public class GameManager : MonoBehaviour
         smoothTo(smoothTarget);
 
         // If the current platform is editor or windows get vertical input values
+        transposer.m_FollowOffset = new Vector3(player.CameraController.offsetX, transposer.m_FollowOffset.y, transposer.m_FollowOffset.z);
+        virtualCamera.m_Lens.Dutch = player.CameraController.datch;
 
         if ((Application.isMobilePlatform == false))
         {
@@ -117,14 +141,13 @@ public class GameManager : MonoBehaviour
                 hBrake = false;
 
 
-        } 
-        
-        // If current platform is Android or IOS uses touch buttons to get vertical input and handbrake 
+        }
         else if ((Application.isMobilePlatform) )
         {
             if (gas_pedal.Pressed)
             {
                 VerticalInput = 1;
+                
             }
             else if (brake_reverse_pedal.Pressed)
             {
@@ -138,6 +161,7 @@ public class GameManager : MonoBehaviour
             else
                 hBrake = false;
         }
+
 
         // Based on controller type get horizontal input
         switch (controller)
@@ -200,7 +224,7 @@ public class GameManager : MonoBehaviour
         //    speedString = speed.ToString();
 
 
-
+       
 
 
     }
@@ -211,18 +235,18 @@ public class GameManager : MonoBehaviour
     // By pressing camera button change current camera to the next camera in the array
     public void cameraButton()
     {
-        if (activeCameraIndex < cameras.Length-1)
-        {
-            cameras[activeCameraIndex].gameObject.SetActive(false);
-            activeCameraIndex++;
-            cameras[activeCameraIndex].gameObject.SetActive(true);
-        }
-        else
-        {
-            cameras[activeCameraIndex].gameObject.SetActive(false);
-            activeCameraIndex = 0;
-            cameras[activeCameraIndex].gameObject.SetActive(true);
-        }
+        //if (activeCameraIndex < cameras.Length-1)
+        //{
+        //    cameras[activeCameraIndex].gameObject.SetActive(false);
+        //    activeCameraIndex++;
+        //    cameras[activeCameraIndex].gameObject.SetActive(true);
+        //}
+        //else
+        //{
+        //    cameras[activeCameraIndex].gameObject.SetActive(false);
+        //    activeCameraIndex = 0;
+        //    cameras[activeCameraIndex].gameObject.SetActive(true);
+        //}
 
     }
 
@@ -330,26 +354,29 @@ public class GameManager : MonoBehaviour
         car = (Instantiate(cars[PersistentData.selectedCarIndex], startPosition.position, startPosition.rotation)).transform;
         player = car.gameObject.GetComponent<CarControllerPro>();
         player.name = "Игрок";
-        TableRacers.instance.CreateTableItemByPlayer(player);
+        transposer = virtualCamera.GetCinemachineComponent<CinemachineTransposer>();
+
 
         // Find the cameras inside and in front of the car and assign them automatically
-        if (car.Find("CarCamera Inside") != null)
-            cameras[1] = car.Find("CarCamera Inside").transform;
+        //if (car.Find("CarCamera Inside") != null)
+        //    cameras[1] = car.Find("CarCamera Inside").transform;
 
-        if (car.Find("CarCamera Front") != null)
-            cameras[2] = car.Find("CarCamera Front").transform;
+        //if (car.Find("CarCamera Front") != null)
+        //    cameras[2] = car.Find("CarCamera Front").transform;
 
-        // Set the car as the target of the other 2 cameras in the scene
-        cameras[0].GetComponent<AutoCam>().Target = car.Find("Camera Pivot");
-        cameras[3].GetComponent<AutoCam>().Target = car.Find("Camera Pivot");
+        //// Set the car as the target of the other 2 cameras in the scene
+        //cameras[0].GetComponent<AutoCam>().Target = car.Find("Camera Pivot");
+        //cameras[3].GetComponent<AutoCam>().Target = car.Find("Camera Pivot");
+        virtualCamera.Follow = player.gameObject.transform;
+        virtualCamera.LookAt = player.gameObject.transform;
     }
 
     // This function restart the game
     public void RestartPressed()
     {
-        cameras[activeCameraIndex].gameObject.SetActive(false);
-        activeCameraIndex = 0;
-        cameras[activeCameraIndex].gameObject.SetActive(true);
+        //cameras[activeCameraIndex].gameObject.SetActive(false);
+        //activeCameraIndex = 0;
+        //cameras[activeCameraIndex].gameObject.SetActive(true);
         Destroy(car.gameObject);
         StartUp();
     }

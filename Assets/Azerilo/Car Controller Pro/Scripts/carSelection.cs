@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class carSelection : MonoBehaviour
 {
     public Transform[] cars = new Transform[3];                         // List of car prefabs
-    public Text carName;                                                // Name of the current car
+    public Text carName;
+    public string nameScene;// Name of the current car
 
     int activeCarIndex = 0;                                             // The index of the current car in the cars array
 
@@ -81,7 +82,7 @@ public class carSelection : MonoBehaviour
     {
         PersistentData.selectedCarIndex = activeCarIndex;
         PersistentData.Level = 2;
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(nameScene);
     }
 
     // Quit the game

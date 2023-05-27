@@ -12,30 +12,51 @@ public class TableRacers : MonoBehaviour
     public CheckPoints CheckPoints => checkPoints;
     public List<TableRacerItem> racerItems;
     public static TableRacers instance;
+    public CarControllerPro playerInstance;
     private void Awake()
     {
         instance = this;
     }
     private void Start()
     {
+        //racerItems = new List<TableRacerItem>();
+        //foreach (var car in cars)
+        //{
+            
+        //        var item = Instantiate(prefabRacerItem, content);
+        //        item.Init(car);
+        //        racerItems.Add(item);
+        //        Debug.Log("car");
+            
+        //}
+    
+    }
+   public void ShowPositionOnLeaderBoard(List<CarPosition> carPositions)
+    {
+        for (int i = 0; i < carPositions.Count; i++)
+        {
+            racerItems[i].SetPlace(carPositions[i].place+ 1, carPositions[i].nameRacer);
+        }
+    }
+    public void Init(CarControllerPro carPl)
+    {
         racerItems = new List<TableRacerItem>();
         foreach (var car in cars)
         {
+
             var item = Instantiate(prefabRacerItem, content);
             item.Init(car);
             racerItems.Add(item);
+            Debug.Log("car");
+
         }
+
+        var carPlayer = Instantiate(prefabRacerItem, content);
+        cars.Add(carPl);
+        carPlayer.Init(carPl);
+        racerItems.Add(carPlayer);
+        Debug.Log("car player");
+        playerInstance = carPl;
         checkPoints.Init();
-    }
-    private void Update()
-    {
-  
-    }
-    public void CreateTableItemByPlayer(CarControllerPro car)
-    {
-        var item = Instantiate(prefabRacerItem, content);
-        cars.Add(car);
-        item.Init(car);
-        racerItems.Add(item);
     }
 }

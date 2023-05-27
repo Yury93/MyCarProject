@@ -18,8 +18,9 @@ public class TableRacerItem : MonoBehaviour
         nameText.text = car.name;
         carControllerPro = car;
     }
-    public void SetPlace(int place)
+    public void SetPlace(int place, string name)
     {
+        nameText.text = name;
         this.place = place;
         placeText.text = place.ToString();
     }

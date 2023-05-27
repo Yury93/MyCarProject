@@ -11,6 +11,7 @@ public class CheckPointItem : MonoBehaviour
     public float nDistanceX, nDistanceY, nDistanceZ;
     public List<float> nDistChk = new List<float>();
     public int nCheckpointNumber;
+    public bool isFinish;
     private void Start()
     {
         nDistChk.Clear();
@@ -45,5 +46,14 @@ public class CheckPointItem : MonoBehaviour
             var index = TableRacers.instance.CheckPoints.CarsGo.IndexOf(car.gameObject);
             TableRacers.instance.CheckPoints.CarPositions[index].SetNumberCheckPoint( nCheckpointNumber + 1);
         }
+        if(isFinish && car.IsAI == false && nDistanceZ != 0)
+        {
+            ApplyFinish();
+        }
+    }
+
+    private void ApplyFinish()
+    {
+        Debug.Log("finish!!!!!!!!!!!!!");
     }
 }

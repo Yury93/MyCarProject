@@ -6,7 +6,37 @@ using UnityEngine;
 /*
     CarControllerPro class is the main class for controlling the car
 */
+[Serializable]
+public class CameraController
+{
+    public float datch;
+    public float offsetX;
+    private float smoothX = 0;
+    public void UpdateOffset(float horizontal)
+    {
+        if (horizontal > 0)
+        {
+            smoothX = (Time.deltaTime * 1.1f);
+           datch = Mathf.Lerp(datch, 6, smoothX);
+            offsetX = Mathf.Lerp(offsetX, 1.84f, smoothX);
+        }
+        if (horizontal < 0)
+        {
+            smoothX = (Time.deltaTime * 1.1f);
+            datch = Mathf.Lerp(datch, -6, smoothX);
+            offsetX = Mathf.Lerp(offsetX, -1.84f, smoothX);
+        }
+        if (horizontal == 0)
+        {
+            smoothX = (Time.deltaTime * 1.1f);
+          datch = Mathf.Lerp(datch, 0, smoothX);
+            offsetX = Mathf.Lerp(offsetX, 0, smoothX);
+        }
+    }
+}
 public class CarControllerPro : MonoBehaviour {
+   
+    public CameraController CameraController;
     public enum CarType
     {
         FrontWheelDrive,   // Motor torque just applies to the front wheels
@@ -15,7 +45,7 @@ public class CarControllerPro : MonoBehaviour {
     }
     public string name;
     //************** Drag each wheel collider to the corresponding variable *********************
-   [SerializeField] public WheelCollider Wheel_Collider_Front_Left;
+    [SerializeField] public WheelCollider Wheel_Collider_Front_Left;
     [SerializeField] public WheelCollider Wheel_Collider_Front_Right;
     [SerializeField] public WheelCollider Wheel_Collider_Rear_Left;
     [SerializeField] public WheelCollider Wheel_Collider_Rear_Right;
@@ -58,7 +88,7 @@ public class CarControllerPro : MonoBehaviour {
     [SerializeField] public List< MeshRenderer> carMeshes;
     [SerializeField] public Color carColor;
 
-    public Point CurrentCheckPoint { get; private set; }
+    public bool IsAI => isAI;
     public int indexCurrentCheckPoint;
     public int CurrentPlace;
     public void SetNextPoint()
@@ -71,10 +101,11 @@ public class CarControllerPro : MonoBehaviour {
     private void Awake()
     {
         // Fing the "Game Manager" game object and get gamemanager component. *WARNING*: Make sure the "Game Manager" object be in the scene. 
-        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+
+        CameraController = new CameraController();
     }
     void Start() {
-
+        gameManager = GameManager.instance; 
         carMeshes.ForEach(m=>m.material.color = carColor);
 
         brakeLightLeftMat = brakeLightLeft.GetComponent<Renderer>().material;
@@ -119,7 +150,7 @@ public class CarControllerPro : MonoBehaviour {
     {
        
     }
-
+    
     private void PlayerController()
     {
         horizontal = gameManager.HorizontalInput;                   // Get horizontal input value from the gamemanager object
@@ -131,11 +162,22 @@ public class CarControllerPro : MonoBehaviour {
 
         carSpeedConverted = Mathf.Round(carSpeed * 3.6f);             // Convert the car speed from meter/second to kilometer/hour
                                                                       // carSpeedRounded = Mathf.Round(carSpeed * 2.237f);         // Use this formula for mile/hour
+        CameraController.UpdateOffset(horizontal);
+
+
 
         gameManager.speed = carSpeedConverted;                      // Pass the car speed to the gamemanager to show it on the speedometer
 
         Wheel_Collider_Front_Left.steerAngle = tireAngle;           // Set front wheel colliders steer angles
         Wheel_Collider_Front_Right.steerAngle = tireAngle;
+        if(gameManager.startGameDelay > 0)
+        {
+            gameManager.hBrake = true;
+        }
+        else
+        {
+            gameManager.hBrake = false;
+        }
 
         if (gameManager.hBrake)
         {
@@ -168,7 +210,7 @@ public class CarControllerPro : MonoBehaviour {
             Wheel_Collider_Rear_Right.brakeTorque = 0;
 
             // Check if car speed has exceeded from maxSpeed
-            if (carSpeedConverted < maxSpeed)
+            if (carSpeedConverted < maxSpeed && gameManager.startGameDelay == 0)
                 motorTorque = maxMotorTorque * vertical;
             else
                 motorTorque = 0;

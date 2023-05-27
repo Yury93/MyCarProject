@@ -14,6 +14,7 @@ public class AiCarController : CarControllerPro
     private float offsetTurn;
     public bool isObstacle;
     private float constDrag;
+   public bool isBrake;
     public override void VirtualStart()
     {
         base.VirtualStart();
@@ -42,18 +43,29 @@ public class AiCarController : CarControllerPro
         Wheel_Collider_Front_Left.steerAngle = tireAngle;           // Set front wheel colliders steer angles
         Wheel_Collider_Front_Right.steerAngle = tireAngle;
 
-        //if (gameManager.hBrake)
-        //{
-        //    // If handbrake button pressed run this part
 
-        //    motorTorque = 0;
-        //    Wheel_Collider_Rear_Left.brakeTorque = brakePower;
-        //    Wheel_Collider_Rear_Right.brakeTorque = brakePower;
+        if(gameManager.startGameDelay > 0)
+        {
+           isBrake = true;
+           
+        }
+        else
+        {
+            isBrake = false;
+        }
 
-        //    brakeLightLeftMat.SetColor("_EmissionColor", brakeColor);
-        //    brakeLightRightMat.SetColor("_EmissionColor", brakeColor);
-        //}
-        if (!gameManager.hBrake)
+        if (isBrake == true)
+        {
+            // If handbrake button pressed run this part
+
+            motorTorque = 0;
+            Wheel_Collider_Rear_Left.brakeTorque = brakePower;
+            Wheel_Collider_Rear_Right.brakeTorque = brakePower;
+
+            brakeLightLeftMat.SetColor("_EmissionColor", brakeColor);
+            brakeLightRightMat.SetColor("_EmissionColor", brakeColor);
+        }
+        if (!isBrake )
         {
             // Else if vertical is pressed change brake light color and set brakeTorques to 0
             if (vertical >= 0 && constDrag == carRigidbody.drag)
@@ -73,7 +85,7 @@ public class AiCarController : CarControllerPro
             Wheel_Collider_Rear_Right.brakeTorque = 0;
 
             // Check if car speed has exceeded from maxSpeed
-            if (carSpeedConverted < maxSpeed)
+            if (carSpeedConverted < maxSpeed  &&  gameManager.startGameDelay == 0)
                 motorTorque = maxMotorTorque * vertical;
             else
                 motorTorque = 0;
