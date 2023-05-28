@@ -99,6 +99,7 @@ public class GameManager : MonoBehaviour
         {
 
         }
+        if(TableRacers.instance)
         TableRacers.instance.Init(player);
         StartCoroutine(StartGameDelay());
      

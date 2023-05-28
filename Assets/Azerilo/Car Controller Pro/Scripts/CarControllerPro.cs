@@ -91,6 +91,7 @@ public class CarControllerPro : MonoBehaviour {
     public bool IsAI => isAI;
     public int indexCurrentCheckPoint;
     public int CurrentPlace;
+    public bool police  ;
     public void SetNextPoint()
     {
      
@@ -108,11 +109,14 @@ public class CarControllerPro : MonoBehaviour {
         gameManager = GameManager.instance; 
         carMeshes.ForEach(m=>m.material.color = carColor);
 
-        brakeLightLeftMat = brakeLightLeft.GetComponent<Renderer>().material;
-        brakeLightRightMat = brakeLightRight.GetComponent<Renderer>().material;
+        if (police == false)
+        {
+            brakeLightLeftMat = brakeLightLeft.GetComponent<Renderer>().material;
+            brakeLightRightMat = brakeLightRight.GetComponent<Renderer>().material;
 
-        brakeLightLeftMat.EnableKeyword("_EMISSION");
-        brakeLightRightMat.EnableKeyword("_EMISSION");
+            brakeLightLeftMat.EnableKeyword("_EMISSION");
+            brakeLightRightMat.EnableKeyword("_EMISSION");
+        }
 
         carRigidbody = GetComponent<Rigidbody>();
 

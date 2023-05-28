@@ -9,8 +9,9 @@ public class Loading : MonoBehaviour
 {
 
     public Slider slider;           // Reference to the slider UI element
-    public float haltTime = 2;      // Halts the loading scene in seconds. You can put zero here to loading screen loads as fast as it can
-
+    public float haltTime = 2;
+    public static string sceneName;// Halts the loading scene in seconds. You can put zero here to loading screen loads as fast as it can
+   
     void Start()
     {
         StartCoroutine(LateStart(2f));
@@ -31,7 +32,7 @@ public class Loading : MonoBehaviour
 
     IEnumerator LoadAsync(int sceneIndex)
     {
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
 
         while (!operation.isDone)
         {

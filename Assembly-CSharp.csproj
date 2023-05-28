@@ -58,25 +58,27 @@
     <Analyzer Include="C:\Program Files\Unity\2022.2.20f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\TableRacers.cs" />
+    <Compile Include="Assets\Scripts\GeneralMenu\SceneLoader.cs" />
     <Compile Include="Assets\Azerilo\Car Controller Pro\Scripts\carSelection.cs" />
+    <Compile Include="Assets\Scripts\RacingScene\CheckPoints.cs" />
+    <Compile Include="Assets\Scripts\RacingScene\TableRacers.cs" />
     <Compile Include="Assets\Azerilo\Car Controller Pro\Scripts\PivotBasedCameraRig.cs" />
+    <Compile Include="Assets\Scripts\RacingScene\AiCarController.cs" />
     <Compile Include="Assets\Azerilo\Car Controller Pro\Scripts\GameManager.cs" />
-    <Compile Include="Assets\Scripts\CheckPointItem.cs" />
     <Compile Include="Assets\Azerilo\Car Controller Pro\Scripts\Loading.cs" />
+    <Compile Include="Assets\Scripts\GeneralMenu\GeneralMenu.cs" />
     <Compile Include="Assets\Azerilo\Car Controller Pro\Scripts\TouchButton.cs" />
-    <Compile Include="Assets\Scripts\PlayersTable.cs" />
+    <Compile Include="Assets\Scripts\RacingScene\CheckPointItem.cs" />
     <Compile Include="Assets\Azerilo\Car Controller Pro\Scripts\Point.cs" />
+    <Compile Include="Assets\Scripts\RacingScene\AiPoints.cs" />
     <Compile Include="Assets\Azerilo\Car Controller Pro\Scripts\PersistentData.cs" />
-    <Compile Include="Assets\Scripts\AiCarController.cs" />
-    <Compile Include="Assets\Scripts\TableRacerItem.cs" />
+    <Compile Include="Assets\Scripts\RacingScene\PlayersTable.cs" />
     <Compile Include="Assets\Azerilo\Car Controller Pro\Scripts\AutoCam.cs" />
-    <Compile Include="Assets\Scripts\CheckPoints.cs" />
     <Compile Include="Assets\Azerilo\Car Controller Pro\Scripts\AbstractTargetFollower.cs" />
     <Compile Include="Assets\Azerilo\Car Controller Pro\Scripts\steerWheel.cs" />
-    <Compile Include="Assets\Scripts\AiPoints.cs" />
     <Compile Include="Assets\Azerilo\Car Controller Pro\Scripts\skidmark.cs" />
     <Compile Include="Assets\Azerilo\Car Controller Pro\Scripts\CarControllerPro.cs" />
+    <Compile Include="Assets\Scripts\RacingScene\TableRacerItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -97,7 +99,6 @@
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
-    <None Include="Assets\Environmental Race Track Pack\RaceTrackPack_Documentation.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\Azerilo\Car Controller Pro\Shaders\DiffuseDoubleside.shader" />
