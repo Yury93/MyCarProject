@@ -34,7 +34,8 @@ public class CameraController
         }
     }
 }
-public class CarControllerPro : MonoBehaviour {
+public class CarControllerPro : MonoBehaviour 
+{
    
     public CameraController CameraController;
     public enum CarType
@@ -92,6 +93,7 @@ public class CarControllerPro : MonoBehaviour {
     public int indexCurrentCheckPoint;
     public int CurrentPlace;
     public bool police  ;
+  
     public void SetNextPoint()
     {
      

@@ -15,6 +15,8 @@ public class AiCarController : CarControllerPro
     public bool isObstacle;
     private float constDrag;
    public bool isBrake;
+    public bool isMobileTarget = false;
+    public CarControllerPro mobileTarget;
     public override void VirtualStart()
     {
         base.VirtualStart();
@@ -24,7 +26,7 @@ public class AiCarController : CarControllerPro
     public override void ApplyAIControlling()
     {
         base.ApplyAIControlling();
-        GoAroundObstacle();
+        GoAroundObstacle(isMobileTarget,mobileTarget.transform);
         GoToTarget();
 
 
@@ -155,9 +157,51 @@ public class AiCarController : CarControllerPro
 
     private void GoToTarget()
     {
-        if (points.points.Count == 0 || isObstacle == true) return;
-        var target = points.points.FirstOrDefault();
-        SetTarget(target);
+
+
+        if (GameManager.instance.policeScene == false)
+        {
+            if (points.points.Count == 0 || isObstacle == true) return;
+            var target = points.points.FirstOrDefault();
+            SetTarget(target);
+        }
+        else
+        {
+            SetMobileTarget(mobileTarget);
+        }
+    }
+
+    private void SetMobileTarget(CarControllerPro target)
+    {
+        Vector3 targetDirection = (target.transform.position - transform.position);
+        float distanceToTarget = targetDirection.magnitude;
+
+
+        var turn = GetRotationDirection(transform, target.transform, true) + offsetTurn;
+        horizontal = turn;
+        if (distanceToTarget < distanceSpeedReductionBeforePoint)
+        {
+            vertical = 1f;
+
+            if (brakeLightLeftMat != false)
+            {
+                brakeLightLeftMat.SetColor("_EmissionColor", brakeColor);
+                brakeLightRightMat.SetColor("_EmissionColor", brakeColor);
+            }
+
+
+        }
+        else
+        {
+            vertical = 3f;
+            carRigidbody.drag = constDrag;
+            if (brakeLightLeftMat != false)
+            {
+                brakeLightLeftMat.SetColor("_EmissionColor", Color.black);
+                brakeLightRightMat.SetColor("_EmissionColor", Color.black);
+            }
+
+        }
     }
 
     private void SetTarget(Point target)
@@ -210,7 +254,7 @@ public class AiCarController : CarControllerPro
     }
 
 
-    private void GoAroundObstacle()
+    private void GoAroundObstacle(bool isMobileTarget, Transform mobileTarget = null)
     {
         GameObject obstacle = GetNearObstacle();
         if (obstacle == null)
@@ -219,24 +263,45 @@ public class AiCarController : CarControllerPro
             return;
         }
         isObstacle = true;
-
-        var target = points.points.FirstOrDefault();
-        if (target)
+        if (isMobileTarget == false)
         {
-            Vector3 targetDirection = target.transform.position - transform.position;
+            var target = points.points.FirstOrDefault();
+            if (target)
+            {
+                Vector3 targetDirection = target.transform.position - transform.position;
+                float distanceToTarget = targetDirection.magnitude;
+                RemovePoint(target, distanceToTarget);
+
+                if (timerObstacle > 0 && carSpeed < 1f)
+                {
+                    timerObstacle -= 1 * Time.fixedDeltaTime;
+                    vertical = -1f;
+                    horizontal = GetRotationDirection(transform, target.transform, false);
+                }
+                //if (vertical == -1 && carSpeed < 0.1f)
+                //{
+                //    isObstacle = false;
+                //}
+                if (carSpeed > 3f)
+                {
+                    isObstacle = false;
+                    timerObstacle = 3f;
+                }
+            }
+        }
+        else if(mobileTarget != null)
+        {
+            Vector3 targetDirection = mobileTarget.transform.position - transform.position;
             float distanceToTarget = targetDirection.magnitude;
-            RemovePoint(target, distanceToTarget);
+         
 
             if (timerObstacle > 0 && carSpeed < 1f)
             {
                 timerObstacle -= 1 * Time.fixedDeltaTime;
                 vertical = -1f;
-                horizontal = GetRotationDirection(transform, target.transform, false);
+                horizontal = GetRotationDirection(transform, mobileTarget.transform, false);
             }
-            //if (vertical == -1 && carSpeed < 0.1f)
-            //{
-            //    isObstacle = false;
-            //}
+         
             if (carSpeed > 3f)
             {
                 isObstacle = false;

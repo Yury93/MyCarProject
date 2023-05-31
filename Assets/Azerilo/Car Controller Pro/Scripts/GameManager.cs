@@ -65,8 +65,13 @@ public class GameManager : MonoBehaviour
     public GameObject[] cars = new GameObject[3];           // Reference to the car prefabs. You can add as many car as you wish here.
 
     Transform car;
-    CarControllerPro player;
+   public CarControllerPro player;
     public int startGameDelay;
+    public bool policeScene;
+    public bool policeWin;
+    public List<AiCarController> policeCars;
+    public Helicopter helicopter;
+    public float timeStopSpeedByPoliceScene;
     public static GameManager instance;
     // Current instantiated car 
 
@@ -229,9 +234,26 @@ public class GameManager : MonoBehaviour
 
 
     }
+   
     private void FixedUpdate()
     {
         speedText.text = (Convert.ToInt32(player.carSpeedConverted * 1.6F)).ToString();
+        if(policeScene && policeWin == false)
+        {
+            if(Convert.ToInt32( speedText.text)< 30f )
+            {
+                timeStopSpeedByPoliceScene += Time.deltaTime;
+                Debug.Log(timeStopSpeedByPoliceScene + " > 6f");
+                if(timeStopSpeedByPoliceScene > 4f)
+                {
+                    Debug.Log("Тебя поймали копы");
+                    CanvasInfo.instance.SetInfoText("Тебя поймали копы");
+                    policeWin = true;
+                }
+
+            }
+            else if( timeStopSpeedByPoliceScene > 0 ) { timeStopSpeedByPoliceScene = 0; }
+        }
     }
     // By pressing camera button change current camera to the next camera in the array
     public void cameraButton()
@@ -370,6 +392,11 @@ public class GameManager : MonoBehaviour
         //cameras[3].GetComponent<AutoCam>().Target = car.Find("Camera Pivot");
         virtualCamera.Follow = player.gameObject.transform;
         virtualCamera.LookAt = player.gameObject.transform;
+        if(policeScene)
+        {
+            policeCars.ForEach(p => p.mobileTarget = player);
+            helicopter.Init(player);
+        }
     }
 
     // This function restart the game

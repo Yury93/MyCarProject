@@ -60,16 +60,19 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\GeneralMenu\SceneLoader.cs" />
     <Compile Include="Assets\Azerilo\Car Controller Pro\Scripts\carSelection.cs" />
+    <Compile Include="Assets\Police Car &amp; Helicopter\Scripts\PoliceCar.cs" />
     <Compile Include="Assets\Scripts\RacingScene\CheckPoints.cs" />
     <Compile Include="Assets\Scripts\RacingScene\TableRacers.cs" />
     <Compile Include="Assets\Azerilo\Car Controller Pro\Scripts\PivotBasedCameraRig.cs" />
     <Compile Include="Assets\Scripts\RacingScene\AiCarController.cs" />
     <Compile Include="Assets\Azerilo\Car Controller Pro\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Police Car &amp; Helicopter\Scripts\MountainCollision.cs" />
     <Compile Include="Assets\Azerilo\Car Controller Pro\Scripts\Loading.cs" />
     <Compile Include="Assets\Scripts\GeneralMenu\GeneralMenu.cs" />
     <Compile Include="Assets\Azerilo\Car Controller Pro\Scripts\TouchButton.cs" />
     <Compile Include="Assets\Scripts\RacingScene\CheckPointItem.cs" />
     <Compile Include="Assets\Azerilo\Car Controller Pro\Scripts\Point.cs" />
+    <Compile Include="Assets\Scripts\RacingScene\PoliceGroup.cs" />
     <Compile Include="Assets\Scripts\RacingScene\AiPoints.cs" />
     <Compile Include="Assets\Azerilo\Car Controller Pro\Scripts\PersistentData.cs" />
     <Compile Include="Assets\Scripts\RacingScene\PlayersTable.cs" />
@@ -77,8 +80,11 @@
     <Compile Include="Assets\Azerilo\Car Controller Pro\Scripts\AbstractTargetFollower.cs" />
     <Compile Include="Assets\Azerilo\Car Controller Pro\Scripts\steerWheel.cs" />
     <Compile Include="Assets\Azerilo\Car Controller Pro\Scripts\skidmark.cs" />
+    <Compile Include="Assets\Police Car &amp; Helicopter\Scripts\CheckPointPolieScene.cs" />
     <Compile Include="Assets\Azerilo\Car Controller Pro\Scripts\CarControllerPro.cs" />
     <Compile Include="Assets\Scripts\RacingScene\TableRacerItem.cs" />
+    <Compile Include="Assets\Police Car &amp; Helicopter\Scripts\CanvasInfo.cs" />
+    <Compile Include="Assets\Police Car &amp; Helicopter\Scripts\Helicopter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
