@@ -11,8 +11,10 @@ public class MountainCollision : MonoBehaviour
             if (player != null && player.IsAI == false)
             {
 
-                Debug.Log("—ъехал с трассы");
-            CanvasInfo.instance.SetInfoText("—ъехал с трассы");
+           if( EndPoliceScene.instance.end == EndType.none)
+      CanvasInfo.instance.SetInfoText("—ъехал с трассы");
+
+            EndPoliceScene.instance.SetTypeEnd(EndType.offTrack);
 
         }
         

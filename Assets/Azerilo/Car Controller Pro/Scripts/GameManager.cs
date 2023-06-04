@@ -78,16 +78,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        // Assign scene cameras
-        //if (GameObject.Find("CarCameraRig Back Near") != null)
-        //    cameras[0] = GameObject.Find("CarCameraRig Back Near").transform;
-
-        //if (GameObject.Find("CarCameraRig above") != null)
-        //    cameras[3] = GameObject.Find("CarCameraRig above").transform;
-
-        //// Disable above camera. just cameras[0] remains active in the scene 
-        //cameras[3].gameObject.SetActive(false);
-
+       
     }
 
     void Start()
@@ -95,9 +86,7 @@ public class GameManager : MonoBehaviour
         StartUp();
         if (Application.isMobilePlatform == false)
         {
-
             buttons.ForEach(b => b.gameObject.SetActive(false));
-
 
         }
         else if ((Application.isMobilePlatform))
@@ -107,8 +96,11 @@ public class GameManager : MonoBehaviour
         if(TableRacers.instance)
         TableRacers.instance.Init(player);
         StartCoroutine(StartGameDelay());
-     
+      
     }
+
+   
+
     IEnumerator StartGameDelay()
     {
         while (startGameDelay > 0)
@@ -243,37 +235,23 @@ public class GameManager : MonoBehaviour
             if(Convert.ToInt32( speedText.text)< 30f )
             {
                 timeStopSpeedByPoliceScene += Time.deltaTime;
-                Debug.Log(timeStopSpeedByPoliceScene + " > 6f");
+                //Debug.Log(timeStopSpeedByPoliceScene + " > 6f");
                 if(timeStopSpeedByPoliceScene > 4f)
                 {
-                    Debug.Log("Тебя поймали копы");
-                    CanvasInfo.instance.SetInfoText("Тебя поймали копы");
+                    //Debug.Log("Тебя поймали копы");
+                    if (EndPoliceScene.instance.end == EndType.none)
+                        CanvasInfo.instance.SetInfoText("Тебя поймали копы");
+
                     policeWin = true;
+                    EndPoliceScene.instance.SetTypeEnd(EndType.detainedByPolice);
                 }
 
             }
             else if( timeStopSpeedByPoliceScene > 0 ) { timeStopSpeedByPoliceScene = 0; }
         }
     }
-    // By pressing camera button change current camera to the next camera in the array
-    public void cameraButton()
-    {
-        //if (activeCameraIndex < cameras.Length-1)
-        //{
-        //    cameras[activeCameraIndex].gameObject.SetActive(false);
-        //    activeCameraIndex++;
-        //    cameras[activeCameraIndex].gameObject.SetActive(true);
-        //}
-        //else
-        //{
-        //    cameras[activeCameraIndex].gameObject.SetActive(false);
-        //    activeCameraIndex = 0;
-        //    cameras[activeCameraIndex].gameObject.SetActive(true);
-        //}
 
-    }
 
-    // By pressing control button change current control type to the next control type in the array
     public void controlButton()
     {
 

@@ -8415,7 +8415,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -8709,7 +8709,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -9760,7 +9760,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -14321,7 +14321,13 @@ MonoBehaviour:
   - {fileID: 4192073598002278076, guid: 52f4c386713f8ef4f98ca4a52ccf8ad9, type: 3}
   - {fileID: 7609567806827473876, guid: 758423e0436d361429d0b635c680f71c, type: 3}
   - {fileID: 1970716525866572269, guid: 91d4c342e0650454b9984a4aa5bda635, type: 3}
+  player: {fileID: 0}
   startGameDelay: 5
+  policeScene: 0
+  policeWin: 0
+  policeCars: []
+  helicopter: {fileID: 0}
+  timeStopSpeedByPoliceScene: 0
 --- !u!4 &1198345904
 Transform:
   m_ObjectHideFlags: 0

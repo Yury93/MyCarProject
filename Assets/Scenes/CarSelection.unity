@@ -215,6 +215,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &186363196 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2245354245556052909, guid: d2ee6046a8bfda24eb4cd2106b672cf6, type: 3}
+  m_PrefabInstance: {fileID: 854913544}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &600128287
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -283,6 +288,11 @@ PrefabInstance:
 --- !u!4 &600128288 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3798853597087168955, guid: 9233686a5b619d54a9e2be759c4285eb, type: 3}
+  m_PrefabInstance: {fileID: 600128287}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &600128289 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 9158886558443151859, guid: 9233686a5b619d54a9e2be759c4285eb, type: 3}
   m_PrefabInstance: {fileID: 600128287}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &799608873
@@ -966,6 +976,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!23 &1324511044 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 9158886558443151853, guid: 9233686a5b619d54a9e2be759c4285eb, type: 3}
+  m_PrefabInstance: {fileID: 600128287}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1532435651
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1065,6 +1080,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0794214a762143a4782c7c73f633cc76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bodyCars:
+  - body:
+    - {fileID: 600128289}
+    - {fileID: 1324511044}
+  - body:
+    - {fileID: 1890360138}
+    - {fileID: 186363196}
+  - body:
+    - {fileID: 2125971900}
   cars:
   - {fileID: 600128288}
   - {fileID: 854913545}
@@ -1145,7 +1169,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
     m_FontSize: 50
     m_FontStyle: 1
     m_BestFit: 0
@@ -1157,7 +1181,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Start Game
+  m_Text: "\u0412\u044B\u0431\u0440\u0430\u0442\u044C"
 --- !u!222 &1690419370
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1299,6 +1323,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1723846535}
   m_CullTransparentMesh: 0
+--- !u!23 &1890360138 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2245354245738857975, guid: d2ee6046a8bfda24eb4cd2106b672cf6, type: 3}
+  m_PrefabInstance: {fileID: 854913544}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2028492441
 GameObject:
   m_ObjectHideFlags: 0
@@ -1444,3 +1473,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be2116ae2a181c94cb2191649e66ee48, type: 3}
+--- !u!23 &2125971900 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8533601335363266793, guid: 073bd94691932244db625d0b1d40ae6f, type: 3}
+  m_PrefabInstance: {fileID: 1532435651}
+  m_PrefabAsset: {fileID: 0}

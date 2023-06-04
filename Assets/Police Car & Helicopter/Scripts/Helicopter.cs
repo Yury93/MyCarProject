@@ -11,10 +11,14 @@ public class Helicopter : MonoBehaviour
     [SerializeField] private float lerpSpeed;
     public void Init(CarControllerPro car)
     {
-        player = car;
+        player = GameManager.instance.player;
     }
     private void Update()
     {
+
+        if(player == null)
+        player = GameManager.instance.player;
+
         rotateObj1.transform.Rotate(0, speedRotateDetails * Time.deltaTime, 0);
         rotateObj2.transform.Rotate(speedRotateDetails * Time.deltaTime, 0, 0);
         

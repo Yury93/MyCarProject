@@ -47,7 +47,7 @@ public class TableRacers : MonoBehaviour
             var item = Instantiate(prefabRacerItem, content);
             item.Init(car);
             racerItems.Add(item);
-            Debug.Log("car");
+           
 
         }
 

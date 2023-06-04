@@ -21,8 +21,10 @@ public class CheckPointPolieScene : MonoBehaviour
         if (player )
         {
 
-            Debug.Log("Финиш");
-            CanvasInfo.instance.SetInfoText("Финиш");
+   
+            if (EndPoliceScene.instance.end == EndType.none)
+                CanvasInfo.instance.SetInfoText("Финиш");
+            EndPoliceScene.instance.SetTypeEnd(EndType.Finish);
 
         }
     }

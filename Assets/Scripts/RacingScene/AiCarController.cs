@@ -26,7 +26,7 @@ public class AiCarController : CarControllerPro
     public override void ApplyAIControlling()
     {
         base.ApplyAIControlling();
-        GoAroundObstacle(isMobileTarget,mobileTarget.transform);
+        GoAroundObstacle(isMobileTarget);
         GoToTarget();
 
 
@@ -254,7 +254,7 @@ public class AiCarController : CarControllerPro
     }
 
 
-    private void GoAroundObstacle(bool isMobileTarget, Transform mobileTarget = null)
+    private void GoAroundObstacle(bool isMobileTarget)
     {
         GameObject obstacle = GetNearObstacle();
         if (obstacle == null)
@@ -289,7 +289,7 @@ public class AiCarController : CarControllerPro
                 }
             }
         }
-        else if(mobileTarget != null)
+        else if(GameManager.instance.policeScene == true &&  mobileTarget != null)
         {
             Vector3 targetDirection = mobileTarget.transform.position - transform.position;
             float distanceToTarget = targetDirection.magnitude;
