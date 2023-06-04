@@ -8719,7 +8719,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f85420d1580a1aa48978b8633c0067be, type: 2}
+  - {fileID: 2100000, guid: 6bd12220ae6a01044873ebbb538afdff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14311,7 +14311,6 @@ MonoBehaviour:
   needle: {fileID: 0}
   sw: {fileID: 645288706}
   controls:
-  - {fileID: 0}
   - {fileID: 941289332}
   - {fileID: 652705305}
   - {fileID: 153933072}

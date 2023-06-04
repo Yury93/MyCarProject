@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,11 +13,13 @@ public class carSelection : MonoBehaviour
         public List<MeshRenderer> body;
         //public List<MeshRenderer> wheels;
     }
+    [SerializeField] private List<Button> buttonColors;
     public List<BodyCar> bodyCars;
-    public Transform[] cars = new Transform[3];                         // List of car prefabs
-    public Text carName;
+    public CarMenu[] cars = new CarMenu[3];                         // List of car prefabs
+    //public Text carName;
     public string nameScene;// Name of the current car
     public static Color carColor ;
+    public static int maxOpenedIndexCar;
 
     int activeCarIndex = 0;
 
@@ -24,16 +27,38 @@ public class carSelection : MonoBehaviour
     public const string COLOR_G = "COLOR_G";
     public const string COLOR_B = "COLOR_B";
     public const string COLOR_A = "COLOR_A";
+    public const string ACTIVE_CAR = "ACTIVE_CAR";
+    public static string MAX_OPENNED_CAR = "MAX_OPENNED_CAR";
 
     void Start()
     {
-        setCarName();
+    
 
         carColor = GetColor();
         bodyCars.ForEach(b=>b.body.ForEach(b=>b.material.color = carColor));
-
+        buttonColors.ForEach(b => b.onClick.AddListener(()=>SetCarColor(b)));
+        PersistentData.selectedCarIndex =  Social1.PlayerPrefs.GetInt(ACTIVE_CAR);
+        activeCarIndex = Social1.PlayerPrefs.GetInt(ACTIVE_CAR);
+        cars.ToList().ForEach(c=>c.gameObject.SetActive(false));
+        cars[activeCarIndex].gameObject.SetActive(true);    
+           
+        setCarName();
     }
-    public Color GetColor()
+    public static void OpenNewCar()
+    {
+        Social1.PlayerPrefs.SetInt("ACCESSED" + (maxOpenedIndexCar + 1).ToString(), maxOpenedIndexCar +1);
+        maxOpenedIndexCar += 1;
+        Social1.PlayerPrefs.SetInt("MAX_OPENNED_CAR",maxOpenedIndexCar);
+    }
+
+    private void SetCarColor(Button b)
+    {
+        carColor = b.image.color;
+        bodyCars.ForEach(b => b.body.ForEach(b => b.material.color = carColor));
+        SaveColor(carColor);
+    }
+
+    public static Color GetColor()
     {
         if (Social1.PlayerPrefs.HasKey(COLOR_R))
         {
@@ -61,9 +86,9 @@ public class carSelection : MonoBehaviour
     void Update()
     {
         // Rotates the cars slowly
-        cars[0].Rotate(0.0f, Time.deltaTime * 10, 0.0f, Space.Self);
-        cars[1].Rotate(0.0f, Time.deltaTime * 10, 0.0f, Space.Self);
-        cars[2].Rotate(0.0f, Time.deltaTime * 10, 0.0f, Space.Self);
+        cars[0].transform.Rotate(0.0f, Time.deltaTime * 10, 0.0f, Space.Self);
+        cars[1].transform.Rotate(0.0f, Time.deltaTime * 10, 0.0f, Space.Self);
+        cars[2].transform.Rotate(0.0f, Time.deltaTime * 10, 0.0f, Space.Self);
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -74,8 +99,10 @@ public class carSelection : MonoBehaviour
     // Shows the next car to the user
     public void NextCar()
     {
+       
         if (activeCarIndex < cars.Length-1)
         {
+            if (cars[activeCarIndex + 1].IsAccessed == false) return;
             cars[activeCarIndex].gameObject.SetActive(false);
             activeCarIndex++;
             cars[activeCarIndex].gameObject.SetActive(true);
@@ -87,8 +114,12 @@ public class carSelection : MonoBehaviour
     // Shows the previous car to the user
     public void PreviousCar()
     {
+       
+
+
         if (activeCarIndex > 0)
         {
+            if (cars[activeCarIndex - 1].IsAccessed == false) return;
             cars[activeCarIndex].gameObject.SetActive(false);
             activeCarIndex--;
             cars[activeCarIndex].gameObject.SetActive(true);
@@ -101,21 +132,21 @@ public class carSelection : MonoBehaviour
     // Sets the car name based on the active index
     void setCarName()
     {
-        switch (activeCarIndex)
-        {
-            case 0:
-                carName.text = "Car 1";
-                break;
-            case 1:
-                carName.text = "Car 2";
-                break;
-            case 2:
-                carName.text = "Car 3";
-                break;
-            case 3:
-                carName.text = "Car 4";
-                break;
-        }
+        //switch (activeCarIndex)
+        //{
+        //    case 0:
+        //        carName.text = "Car 1";
+        //        break;
+        //    case 1:
+        //        carName.text = "Car 2";
+        //        break;
+        //    case 2:
+        //        carName.text = "Car 3";
+        //        break;
+        //    case 3:
+        //        carName.text = "Car 4";
+        //        break;
+        //}
         
     }
 
@@ -123,7 +154,8 @@ public class carSelection : MonoBehaviour
     public void startGame()
     {
         PersistentData.selectedCarIndex = activeCarIndex;
-        PersistentData.Level = 2;
+        Social1.PlayerPrefs.SetInt(ACTIVE_CAR, activeCarIndex);
+        //PersistentData.Level = 2;
         Loading.sceneName = "GeneralMenu";
         SceneManager.LoadScene(nameScene);
     }
@@ -131,6 +163,8 @@ public class carSelection : MonoBehaviour
     // Quit the game
     public void Quit()
     {
-        Application.Quit();
+        Loading.sceneName = "GeneralMenu";
+        SceneManager.LoadScene(nameScene);
     }
+  
 }

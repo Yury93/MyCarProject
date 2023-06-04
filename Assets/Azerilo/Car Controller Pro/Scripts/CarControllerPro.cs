@@ -109,12 +109,12 @@ public class CarControllerPro : MonoBehaviour
     }
     void Start() {
         gameManager = GameManager.instance;
-        carMeshes.ForEach(m => m.material.color = carColor);
+      
         if (IsAI == false)
         {
-            carColor = carSelection.carColor;
+            carColor = carSelection.GetColor();
         }
-
+        carMeshes.ForEach(m => m.material.color = carColor);
         if (police == false)
         {
             brakeLightLeftMat = brakeLightLeft.GetComponent<Renderer>().material;

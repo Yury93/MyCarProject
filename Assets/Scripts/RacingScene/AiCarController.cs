@@ -210,8 +210,10 @@ public class AiCarController : CarControllerPro
         float distanceToTarget = targetDirection.magnitude;
 
 
-        var turn = GetRotationDirection(transform, target.transform, true) + offsetTurn;
-        horizontal = turn;
+       
+            var turn = GetRotationDirection(transform, target.transform, true) + offsetTurn;
+            horizontal = turn;
+        
         RemovePoint(target, distanceToTarget);
         if (distanceToTarget < distanceSpeedReductionBeforePoint)
         {

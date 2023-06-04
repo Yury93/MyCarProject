@@ -26,6 +26,8 @@ public class SceneLoader : MonoBehaviour
     private void Awake()
     {
         buttonLoaders.ForEach(button => button.Init());
+
+        carSelection.maxOpenedIndexCar =  Social1.PlayerPrefs.GetInt("MAX_OPENNED_CAR");
     }
     public static void LoadScene(string sceneName)
     {

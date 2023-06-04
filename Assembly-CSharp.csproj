@@ -83,6 +83,7 @@
     <Compile Include="Assets\Azerilo\Car Controller Pro\Scripts\steerWheel.cs" />
     <Compile Include="Assets\Azerilo\Car Controller Pro\Scripts\skidmark.cs" />
     <Compile Include="Assets\Police Car &amp; Helicopter\Scripts\CheckPointPolieScene.cs" />
+    <Compile Include="Assets\Scripts\GeneralMenu\CarMenu.cs" />
     <Compile Include="Assets\Azerilo\Car Controller Pro\Scripts\CarControllerPro.cs" />
     <Compile Include="Assets\Scripts\RacingScene\TableRacerItem.cs" />
     <Compile Include="Assets\Police Car &amp; Helicopter\Scripts\CanvasInfo.cs" />
