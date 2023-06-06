@@ -6,6 +6,7 @@ public class TableRacers : MonoBehaviour
 {
     [SerializeField] public List<CarControllerPro> cars;
     [SerializeField] private TableRacerItem prefabRacerItem;
+    [SerializeField] private List<TableRacerItem> finalTableItem; 
     [SerializeField] private Transform content;
     [SerializeField] private CheckPoints checkPoints;
     public List<CarControllerPro> Cars => cars;
@@ -13,6 +14,7 @@ public class TableRacers : MonoBehaviour
     public List<TableRacerItem> racerItems;
     public static TableRacers instance;
     public CarControllerPro playerInstance;
+    public static bool IsFInish = false;
     private void Awake()
     {
         instance = this;
@@ -31,11 +33,26 @@ public class TableRacers : MonoBehaviour
         //}
     
     }
+
    public void ShowPositionOnLeaderBoard(List<CarPosition> carPositions)
     {
+       
         for (int i = 0; i < carPositions.Count; i++)
         {
             racerItems[i].SetPlace(carPositions[i].place+ 1, carPositions[i].nameRacer);
+        }
+       
+     
+    }
+    public void ShowPositionOnFinishTable(List<CarPosition> carPositions)
+    {
+        if (IsFInish == true)
+        {
+            for (int i = 0; i < racerItems.Count; i++)
+            {
+                finalTableItem[i].SetPlace(carPositions[i].place + 1, carPositions[i].nameRacer);
+            }
+            IsFInish = false;
         }
     }
     public void Init(CarControllerPro carPl)
@@ -55,8 +72,18 @@ public class TableRacers : MonoBehaviour
         cars.Add(carPl);
         carPlayer.Init(carPl);
         racerItems.Add(carPlayer);
-        Debug.Log("car player");
         playerInstance = carPl;
         checkPoints.Init();
+
+
+        int i = 0;
+        foreach (var car in cars)
+        {
+
+            finalTableItem[i].Init(car);
+            i++;
+
+        }
+
     }
 }

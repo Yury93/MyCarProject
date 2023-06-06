@@ -5,11 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class CheckPointItem : MonoBehaviour
 {
 
     [SerializeField] private  Cinemachine.CinemachineVirtualCamera virtualCamera;
+    [SerializeField] private GameObject canvasFinal;
+    [SerializeField] private Button continueButton;
     Cinemachine.CinemachineOrbitalTransposer transposer;
     public float nDistanceX, nDistanceY, nDistanceZ;
     public List<float> nDistChk = new List<float>();
@@ -23,6 +26,8 @@ public class CheckPointItem : MonoBehaviour
         {
             nDistChk.Add(0);
         }
+        if(continueButton != null) 
+        continueButton.onClick.AddListener(() => SceneManager.LoadScene(Loading.sceneName));
     }
 
     void Update()
@@ -72,6 +77,11 @@ public class CheckPointItem : MonoBehaviour
 
             GameManager.instance.virtualCamera.gameObject.SetActive(false);
             GameManager.instance.transposer.gameObject.SetActive(false);
+           if(canvasFinal != null)
+            canvasFinal.SetActive(true);
+            TableRacers.IsFInish = true;
+          
+
             TableRacers.instance.CheckPoints.CarsGo.ForEach(c => 
             {
               var car =  c.GetComponentInParent<CarControllerPro>();

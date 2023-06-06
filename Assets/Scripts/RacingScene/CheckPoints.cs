@@ -75,6 +75,7 @@ public class CheckPoints : MonoBehaviour
                 deltaLeaderBoardData = leaderBoardData;
                 break;
             }
+            TableRacers.instance.ShowPositionOnFinishTable(leaderBoardData);
         } 
     }
 }

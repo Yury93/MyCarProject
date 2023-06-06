@@ -77,6 +77,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI timeStartText;
     public StartFlag startFlag;
     // Current instantiated car 
+    public int currentSceneIndex;
+    public Button restartButton;
 
     private void Awake()
     {
@@ -96,17 +98,25 @@ public class GameManager : MonoBehaviour
         {
 
         }
-        if(TableRacers.instance)
-        TableRacers.instance.Init(player);
-        StartCoroutine(StartGameDelay());
-   
+        if (policeScene == false)
+        {
+            if (TableRacers.instance)
+                TableRacers.instance.Init(player);
+            StartCoroutine(StartGameDelay());
 
+            currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            restartButton.onClick.AddListener(Restart);
+            Debug.Log("restart на полицейской сцене");
+        }
 
     }
 
-  
+    private void Restart()
+    {
+        SceneManager.LoadScene(currentSceneIndex);
+    }
 
-     IEnumerator StartGameDelay()
+    IEnumerator StartGameDelay()
     {
         var startScale = timeStartText.transform.localScale;
         timeStartText.text = startGameDelay.ToString();
