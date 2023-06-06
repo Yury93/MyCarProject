@@ -5,9 +5,10 @@ using System.Collections.Generic;
 using System;
 using Cinemachine;
 using System.Collections;
-
+using DG.Tweening;
+using TMPro;
 /*
-    GameManager class is the main class for getting input from the user and also updating UI elements
+GameManager class is the main class for getting input from the user and also updating UI elements
 */
 public class GameManager : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class GameManager : MonoBehaviour
         wheel
     }
     public Cinemachine.CinemachineVirtualCamera virtualCamera;
-    Cinemachine.CinemachineTransposer transposer;
+   public Cinemachine.CinemachineTransposer transposer;
 
    public controllerType controller = controllerType.ArrowKeys;   // Set the default controller type
     public Transform startPosition;                         // Start position of the car. The car appears and the positon and rotation of this variable
@@ -73,6 +74,8 @@ public class GameManager : MonoBehaviour
     public Helicopter helicopter;
     public float timeStopSpeedByPoliceScene;
     public static GameManager instance;
+    public TextMeshProUGUI timeStartText;
+    public StartFlag startFlag;
     // Current instantiated car 
 
     private void Awake()
@@ -96,21 +99,36 @@ public class GameManager : MonoBehaviour
         if(TableRacers.instance)
         TableRacers.instance.Init(player);
         StartCoroutine(StartGameDelay());
-      
-    }
-
    
 
-    IEnumerator StartGameDelay()
+
+    }
+
+  
+
+     IEnumerator StartGameDelay()
     {
+        var startScale = timeStartText.transform.localScale;
+        timeStartText.text = startGameDelay.ToString();
         while (startGameDelay > 0)
         {
+            timeStartText.transform.localScale = startScale;
             yield return new WaitForSeconds(1f);
             startGameDelay --;
-
+            timeStartText.transform.DOScale(new Vector3(startScale.x + 3,startScale.y + 3),1f);
+            timeStartText.text =  startGameDelay.ToString();
+            startFlag.Active(true);
             //timeText
         }
         startGameDelay = 0;
+        timeStartText.transform.localScale = startScale;
+        timeStartText.transform.DOScale(new Vector3(startScale.x + 3, startScale.y + 3), 1f);
+        timeStartText.color = Color.green;
+        timeStartText.text = "Старт!!!";
+        startFlag.Active(true);
+        yield return new WaitForSeconds(1f);
+        timeStartText.gameObject.SetActive(false);
+
         //timeText
     }
     void Update()
@@ -357,7 +375,7 @@ public class GameManager : MonoBehaviour
         player.name = "Игрок";
         transposer = virtualCamera.GetCinemachineComponent<CinemachineTransposer>();
 
-
+       
         // Find the cameras inside and in front of the car and assign them automatically
         //if (car.Find("CarCamera Inside") != null)
         //    cameras[1] = car.Find("CarCamera Inside").transform;

@@ -517,12 +517,11 @@ MonoBehaviour:
   buttonLoaders:
   - sceneName: PreLog
     button: {fileID: 1078769779}
-  - sceneName: 
-    button: {fileID: 1963149842}
   - sceneName: RaceLevel1
     button: {fileID: 1248828605}
   - sceneName: CarSelection
     button: {fileID: 2073699259}
+  continueButton: {fileID: 1963149842}
 --- !u!4 &980808756
 Transform:
   m_ObjectHideFlags: 0
@@ -1379,7 +1378,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1963149840}
   m_OnClick:
     m_PersistentCalls:

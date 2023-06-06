@@ -14,9 +14,11 @@ public class carSelection : MonoBehaviour
         //public List<MeshRenderer> wheels;
     }
     [SerializeField] private List<Button> buttonColors;
+    [SerializeField] private Button buttonRight, buttonLeft,buttonSelectedCar;//надо скрывать кнопки если не открыт не один кар еще
     public List<BodyCar> bodyCars;
     public CarMenu[] cars = new CarMenu[3];                         // List of car prefabs
     //public Text carName;
+    public Text messageMaxCar;
     public string nameScene;// Name of the current car
     public static Color carColor ;
     public static int maxOpenedIndexCar;
@@ -29,6 +31,8 @@ public class carSelection : MonoBehaviour
     public const string COLOR_A = "COLOR_A";
     public const string ACTIVE_CAR = "ACTIVE_CAR";
     public static string MAX_OPENNED_CAR = "MAX_OPENNED_CAR";
+    public static bool isMain;
+    
 
     void Start()
     {
@@ -41,14 +45,34 @@ public class carSelection : MonoBehaviour
         activeCarIndex = Social1.PlayerPrefs.GetInt(ACTIVE_CAR);
         cars.ToList().ForEach(c=>c.gameObject.SetActive(false));
         cars[activeCarIndex].gameObject.SetActive(true);    
-           
+           if(maxOpenedIndexCar == 0)
+        {
+            buttonRight.gameObject.SetActive(false);
+            buttonLeft.gameObject.SetActive(false);
+            messageMaxCar.text = "Пока открыта только одна машина! Проходите игру, чтобы открыть еще машины!";
+        }
         setCarName();
+        
+        if(isMain)
+        {
+            buttonSelectedCar.onClick.AddListener(startMain);
+        }
+        else
+        {
+            buttonSelectedCar.onClick.AddListener(startGame);
+        }
+
+
+        cars.ToList().ForEach(c => c.Init());
     }
     public static void OpenNewCar()
     {
-        Social1.PlayerPrefs.SetInt("ACCESSED" + (maxOpenedIndexCar + 1).ToString(), maxOpenedIndexCar +1);
         maxOpenedIndexCar += 1;
+        Debug.Log("ACCESSED" + (maxOpenedIndexCar) + " КЛЮЧ КОТОРЫЙ зАПИСЫВАЕМ");
+        Social1.PlayerPrefs.SetInt("ACCESSED" + (maxOpenedIndexCar).ToString(), maxOpenedIndexCar );
+ 
         Social1.PlayerPrefs.SetInt("MAX_OPENNED_CAR",maxOpenedIndexCar);
+        Debug.Log(MAX_OPENNED_CAR + " " +  maxOpenedIndexCar);
     }
 
     private void SetCarColor(Button b)
@@ -90,7 +114,7 @@ public class carSelection : MonoBehaviour
         cars[1].transform.Rotate(0.0f, Time.deltaTime * 10, 0.0f, Space.Self);
         cars[2].transform.Rotate(0.0f, Time.deltaTime * 10, 0.0f, Space.Self);
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && isMain)
         {
             Quit();
         }
@@ -132,31 +156,24 @@ public class carSelection : MonoBehaviour
     // Sets the car name based on the active index
     void setCarName()
     {
-        //switch (activeCarIndex)
-        //{
-        //    case 0:
-        //        carName.text = "Car 1";
-        //        break;
-        //    case 1:
-        //        carName.text = "Car 2";
-        //        break;
-        //    case 2:
-        //        carName.text = "Car 3";
-        //        break;
-        //    case 3:
-        //        carName.text = "Car 4";
-        //        break;
-        //}
+       
         
     }
 
-    // Fills the PersistentData class with the selected car name and loads the main scene
-    public void startGame()
+    public void startMain()
     {
         PersistentData.selectedCarIndex = activeCarIndex;
         Social1.PlayerPrefs.SetInt(ACTIVE_CAR, activeCarIndex);
         //PersistentData.Level = 2;
         Loading.sceneName = "GeneralMenu";
+        SceneManager.LoadScene(nameScene);
+    }
+    public void startGame()
+    {
+        PersistentData.selectedCarIndex = activeCarIndex;
+        Social1.PlayerPrefs.SetInt(ACTIVE_CAR, activeCarIndex);
+        //PersistentData.Level = 2;
+        Loading.sceneName = "Season"+ SeasonRacing.CurrentSeason;
         SceneManager.LoadScene(nameScene);
     }
 

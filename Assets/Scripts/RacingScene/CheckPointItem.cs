@@ -1,13 +1,16 @@
+using DG.Tweening.Core.Easing;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CheckPointItem : MonoBehaviour
 {
 
-
+    [SerializeField] private  Cinemachine.CinemachineVirtualCamera virtualCamera;
+    Cinemachine.CinemachineOrbitalTransposer transposer;
     public float nDistanceX, nDistanceY, nDistanceZ;
     public List<float> nDistChk = new List<float>();
     public int nCheckpointNumber;
@@ -55,5 +58,33 @@ public class CheckPointItem : MonoBehaviour
     private void ApplyFinish()
     {
         Debug.Log("finish!!!!!!!!!!!!!");
+        
+        Loading.sceneName = "SelectSeasons";
+        StartCoroutine(CorLoadScene());
+        IEnumerator CorLoadScene()
+        {
+            virtualCamera.m_Follow = GameManager.instance.player.transform;
+            virtualCamera.LookAt = GameManager.instance.player.transform;
+           
+            virtualCamera.gameObject.SetActive(true);
+            if(transposer != null) 
+            transposer.gameObject.SetActive(true);
+
+            GameManager.instance.virtualCamera.gameObject.SetActive(false);
+            GameManager.instance.transposer.gameObject.SetActive(false);
+            TableRacers.instance.CheckPoints.CarsGo.ForEach(c => 
+            {
+              var car =  c.GetComponentInParent<CarControllerPro>();
+              car.maxSpeed = 0;
+
+                
+                GameManager.instance.hBrake = true;
+
+            });
+           
+              yield return new WaitForSeconds(30f);
+          
+            SceneManager.LoadScene(Loading.sceneName);
+        }
     }
 }

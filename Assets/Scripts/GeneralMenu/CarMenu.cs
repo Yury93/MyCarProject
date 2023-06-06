@@ -8,8 +8,11 @@ public class CarMenu : MonoBehaviour
     public bool IsAccessed;
 
     public const string ACCESSED = "ACCESSED";
-    private void Awake()
+    public int plPLayers;
+    public void Init()
     {
+        Debug.Log(ACCESSED + indexCar + " йкчв йнрнпши онксвюел");
+        plPLayers = Social1.PlayerPrefs.GetInt(ACCESSED + indexCar);
         if(Social1.PlayerPrefs.GetInt(ACCESSED + indexCar)  == indexCar)
         {
             IsAccessed = true;

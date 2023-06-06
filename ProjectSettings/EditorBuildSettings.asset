@@ -15,9 +15,12 @@ EditorBuildSettings:
     path: Assets/Scenes/CarSelection.unity
     guid: 50245d2d89c91c9498edc087509d9060
   - enabled: 1
-    path: Assets/Scenes/RaceLevel1.unity
+    path: Assets/Scenes/Season0.unity
     guid: 53e2d24fdf7137443bd58c0cd6c1be3e
   - enabled: 1
     path: Assets/Scenes/Loading.unity
     guid: 3dd1d42c74ee6334fb0d3e39001de188
+  - enabled: 1
+    path: Assets/Scenes/SelectSeasons.unity
+    guid: 7f120286e81d8b341b18834e87a13430
   m_configObjects: {}
