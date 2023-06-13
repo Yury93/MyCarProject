@@ -81,7 +81,9 @@
     <Compile Include="Assets\Scripts\RacingScene\PlayersTable.cs" />
     <Compile Include="Assets\Azerilo\Car Controller Pro\Scripts\AutoCam.cs" />
     <Compile Include="Assets\Azerilo\Car Controller Pro\Scripts\AbstractTargetFollower.cs" />
+    <Compile Include="Assets\Scripts\GeneralMenu\Season.cs" />
     <Compile Include="Assets\Azerilo\Car Controller Pro\Scripts\steerWheel.cs" />
+    <Compile Include="Assets\Scripts\GeneralMenu\SeasonService.cs" />
     <Compile Include="Assets\Azerilo\Car Controller Pro\Scripts\skidmark.cs" />
     <Compile Include="Assets\Police Car &amp; Helicopter\Scripts\CheckPointPolieScene.cs" />
     <Compile Include="Assets\Police Car &amp; Helicopter\Scripts\PoliceGroup.cs" />

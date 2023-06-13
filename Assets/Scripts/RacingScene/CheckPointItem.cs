@@ -51,8 +51,11 @@ public class CheckPointItem : MonoBehaviour
         var car = other.GetComponentInParent<CarControllerPro>();
         if (car != null)
         {
-            var index = TableRacers.instance.CheckPoints.CarsGo.IndexOf(car.gameObject);
-            TableRacers.instance.CheckPoints.CarPositions[index].SetNumberCheckPoint( nCheckpointNumber + 1);
+            var carIndex = TableRacers.instance.CheckPoints.CarsGo.IndexOf(car.gameObject);
+         int currentPoint =  TableRacers.instance.CheckPoints.CarPositions[carIndex].GetNumberCheckPoint();
+            //Debug.Log($"{nCheckpointNumber + 1} == {currentPoint + 1}  будущие точки");
+            if(nCheckpointNumber + 1 == currentPoint + 1)
+          TableRacers.instance.CheckPoints.CarPositions[carIndex].SetNumberCheckPoint( nCheckpointNumber + 1);
         }
         if(isFinish && car.IsAI == false && nDistanceZ != 0)
         {
@@ -81,6 +84,7 @@ public class CheckPointItem : MonoBehaviour
             canvasFinal.SetActive(true);
             TableRacers.IsFInish = true;
           
+            SeasonRacing.CurrentSeason = SeasonRacing.CurrentSeason + 1; 
 
             TableRacers.instance.CheckPoints.CarsGo.ForEach(c => 
             {
@@ -91,8 +95,19 @@ public class CheckPointItem : MonoBehaviour
                 GameManager.instance.hBrake = true;
 
             });
-           
-              yield return new WaitForSeconds(30f);
+
+            //var place = TableRacers.instance.GetPlayerByTable().Place;
+            //Debug.Log(place + " место которое занял игрок ");
+
+
+            //Social1.PlayerPrefs.SetInt("Season" + GameManager.instance.SeasonIndex, place);
+        
+        //while(TableRacers.instance.GetPlayerByTable().Place == 0)
+        //  {
+        //      yield return new WaitForSeconds(0.01f);
+        //  }
+
+        yield return new WaitForSeconds(30f);
           
             SceneManager.LoadScene(Loading.sceneName);
         }

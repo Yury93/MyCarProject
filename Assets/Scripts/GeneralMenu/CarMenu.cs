@@ -11,9 +11,9 @@ public class CarMenu : MonoBehaviour
     public int plPLayers;
     public void Init()
     {
-        Debug.Log(ACCESSED + indexCar + " ÊËŞ× ÊÎÒÎĞÛÉ ÏÎËÓ×ÀÅÌ");
+        Debug.Log(ACCESSED + indexCar + " ÊËŞ× ÊÎÒÎĞÛÉ ÏÎËÓ×ÀÅÌ---  ñàì èíäåêñ ---"+Social1.PlayerPrefs.GetInt(ACCESSED + indexCar));
         plPLayers = Social1.PlayerPrefs.GetInt(ACCESSED + indexCar);
-        if(Social1.PlayerPrefs.GetInt(ACCESSED + indexCar)  == indexCar)
+        if(plPLayers  == indexCar)
         {
             IsAccessed = true;
         }

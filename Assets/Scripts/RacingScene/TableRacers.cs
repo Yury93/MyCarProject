@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TableRacers : MonoBehaviour
@@ -18,6 +19,7 @@ public class TableRacers : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        IsFInish = false;
     }
     private void Start()
     {
@@ -36,10 +38,11 @@ public class TableRacers : MonoBehaviour
 
    public void ShowPositionOnLeaderBoard(List<CarPosition> carPositions)
     {
+
        
         for (int i = 0; i < carPositions.Count; i++)
         {
-            racerItems[i].SetPlace(carPositions[i].place+ 1, carPositions[i].nameRacer);
+            racerItems[i].SetPlace(carPositions[i].place + 1, carPositions[i].nameRacer, carPositions[i].Car);
         }
        
      
@@ -50,10 +53,31 @@ public class TableRacers : MonoBehaviour
         {
             for (int i = 0; i < racerItems.Count; i++)
             {
-                finalTableItem[i].SetPlace(carPositions[i].place + 1, carPositions[i].nameRacer);
+                //carPositions[i].place = i;
+                finalTableItem[i].SetPlace(carPositions[i].place + 1 , carPositions[i].nameRacer, carPositions[i].Car);
+                //Debug.Log(i);
             }
+            //Debug.Log("функция назначение мест прошла");
+            Debug.Log("место игрока =" + TableRacers.instance.GetPlayerByTable().Place);
+            var place = TableRacers.instance.GetPlayerByTable().Place;
+            //Debug.Log(place + " место которое занял игрок ");
+
+
+            Social1.PlayerPrefs.SetInt("Season" + GameManager.instance.SeasonIndex, place);
+            if (TableRacers.instance.GetPlayerByTable().Place == 1)
+            {
+                carSelection.OpenNewCar();
+            }
+
+            racerItems.ForEach(r=>r.gameObject.SetActive(false));
             IsFInish = false;
         }
+    }
+    public TableRacerItem GetPlayerByTable()
+    {
+      var  t = finalTableItem.First(t => t.Car.IsAI == false);
+      return t;
+     
     }
     public void Init(CarControllerPro carPl)
     {

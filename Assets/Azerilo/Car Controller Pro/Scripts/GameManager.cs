@@ -79,6 +79,7 @@ public class GameManager : MonoBehaviour
     // Current instantiated car 
     public int currentSceneIndex;
     public Button restartButton;
+    public int SeasonIndex;
 
     private void Awake()
     {

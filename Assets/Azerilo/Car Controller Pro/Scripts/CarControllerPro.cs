@@ -17,13 +17,13 @@ public class CameraController
         if (horizontal > 0)
         {
             smoothX = (Time.deltaTime * 1.1f);
-           datch = Mathf.Lerp(datch, 6, smoothX);
+           datch = Mathf.Lerp(datch,11, smoothX);
             offsetX = Mathf.Lerp(offsetX, 1.84f, smoothX);
         }
         if (horizontal < 0)
         {
             smoothX = (Time.deltaTime * 1.1f);
-            datch = Mathf.Lerp(datch, -6, smoothX);
+            datch = Mathf.Lerp(datch, -11, smoothX);
             offsetX = Mathf.Lerp(offsetX, -1.84f, smoothX);
         }
         if (horizontal == 0)

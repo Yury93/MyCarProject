@@ -9710,8 +9710,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 52.018078, y: 21.538197, z: 1}
-  m_Center: {x: -12.763986, y: -4.202444, z: -0.000013048822}
+  m_Size: {x: 52.018074, y: 36.010845, z: 10.690892}
+  m_Center: {x: -12.76395, y: -8.529173, z: -0.5581237}
 --- !u!114 &2721737639469963901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9724,6 +9724,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1360b7a19b53634488087cc94dcbfca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  virtualCamera: {fileID: 0}
+  canvasFinal: {fileID: 0}
+  continueButton: {fileID: 0}
   nDistanceX: 0
   nDistanceY: 0
   nDistanceZ: 0

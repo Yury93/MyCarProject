@@ -72,7 +72,7 @@ public class carSelection : MonoBehaviour
         Social1.PlayerPrefs.SetInt("ACCESSED" + (maxOpenedIndexCar).ToString(), maxOpenedIndexCar );
  
         Social1.PlayerPrefs.SetInt("MAX_OPENNED_CAR",maxOpenedIndexCar);
-        Debug.Log(MAX_OPENNED_CAR + " " +  maxOpenedIndexCar);
+        Debug.Log($" ИНДЕКС МАШИНЫ {Social1.PlayerPrefs.GetInt("ACCESSED" + (maxOpenedIndexCar))}/  МАКС ОТКРЫТЫЙ ИНДЕКС КАР {Social1.PlayerPrefs.GetInt("MAX_OPENNED_CAR",maxOpenedIndexCar)}");
     }
 
     private void SetCarColor(Button b)
@@ -174,6 +174,11 @@ public class carSelection : MonoBehaviour
         Social1.PlayerPrefs.SetInt(ACTIVE_CAR, activeCarIndex);
         //PersistentData.Level = 2;
         Loading.sceneName = "Season"+ SeasonRacing.CurrentSeason;
+        if (SeasonRacing.CurrentSeason > 0)
+        {
+            Loading.sceneName = "SelectSeasons";
+
+        }
         SceneManager.LoadScene(nameScene);
     }
 
