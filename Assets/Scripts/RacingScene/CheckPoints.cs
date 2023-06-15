@@ -61,6 +61,7 @@ public class CheckPoints : MonoBehaviour
         for (int i = 0; i < checkPoints.Count; i++)
         {
             checkPoints[i].nCheckpointNumber = i;
+            Debug.Log(checkPoints[i].nCheckpointNumber + " POINT");
         }
         deltaLeaderBoardData = carPositions;
     }

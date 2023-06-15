@@ -15,12 +15,39 @@ EditorBuildSettings:
     path: Assets/Scenes/CarSelection.unity
     guid: 50245d2d89c91c9498edc087509d9060
   - enabled: 1
-    path: Assets/Scenes/Season0.unity
-    guid: 53e2d24fdf7137443bd58c0cd6c1be3e
-  - enabled: 1
     path: Assets/Scenes/Loading.unity
     guid: 3dd1d42c74ee6334fb0d3e39001de188
   - enabled: 1
     path: Assets/Scenes/SelectSeasons.unity
     guid: 7f120286e81d8b341b18834e87a13430
+  - enabled: 1
+    path: Assets/Scenes/Season0.unity
+    guid: 53e2d24fdf7137443bd58c0cd6c1be3e
+  - enabled: 1
+    path: Assets/Scenes/Season1.unity
+    guid: 7384fd40aafc84441a4d2662717a6535
+  - enabled: 1
+    path: Assets/Scenes/Season2.unity
+    guid: efc79f47218bd9f48a37e7a959617546
+  - enabled: 1
+    path: Assets/Scenes/Season3.unity
+    guid: 4dc535cc2030df944bfec2a743a77f8b
+  - enabled: 1
+    path: Assets/Scenes/Season4.unity
+    guid: 6a0f55d81453a6948bc987a6c6d203b6
+  - enabled: 1
+    path: Assets/Scenes/Season5.unity
+    guid: 279604d52f71f2a428a4701be7472f0f
+  - enabled: 1
+    path: Assets/Scenes/Season6.unity
+    guid: b27da4ac19f1d78489ead8a061de06d5
+  - enabled: 1
+    path: Assets/Scenes/Season7.unity
+    guid: 42ed74393be58e348b8f89f32cec2e17
+  - enabled: 1
+    path: Assets/Scenes/Season8.unity
+    guid: fc953f63aaf43d84aa0251d51c0a2ca3
+  - enabled: 1
+    path: Assets/Scenes/Season9.unity
+    guid: b5f67d9e96cf41d4aa2da8f68ea7b1c4
   m_configObjects: {}

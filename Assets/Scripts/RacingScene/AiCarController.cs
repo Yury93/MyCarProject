@@ -17,6 +17,7 @@ public class AiCarController : CarControllerPro
    public bool isBrake;
     public bool isMobileTarget = false;
     public CarControllerPro mobileTarget;
+    
     public override void VirtualStart()
     {
         base.VirtualStart();
@@ -178,6 +179,7 @@ public class AiCarController : CarControllerPro
 
 
         var turn = GetRotationDirection(transform, target.transform, true) + offsetTurn;
+       
         horizontal = turn;
         if (distanceToTarget < distanceSpeedReductionBeforePoint)
         {
@@ -255,15 +257,19 @@ public class AiCarController : CarControllerPro
         }
     }
 
-
+    GameObject obstaclePoint = new GameObject();
     private void GoAroundObstacle(bool isMobileTarget)
     {
         GameObject obstacle = GetNearObstacle();
+      
         if (obstacle == null)
         {
             isObstacle = false;
+            vertical = 1f;
             return;
         }
+        obstaclePoint = new GameObject();
+        obstaclePoint.transform.position = -obstacle.transform.position;
         isObstacle = true;
         if (isMobileTarget == false)
         {
@@ -274,20 +280,26 @@ public class AiCarController : CarControllerPro
                 float distanceToTarget = targetDirection.magnitude;
                 RemovePoint(target, distanceToTarget);
 
-                if (timerObstacle > 0 && carSpeed < 1f)
+                if (timerObstacle > 0 || carSpeed <= 5f)
                 {
                     timerObstacle -= 1 * Time.fixedDeltaTime;
                     vertical = -1f;
-                    horizontal = GetRotationDirection(transform, target.transform, false);
+
+                    //    horizontal = GetRotationDirection(transform, obstaclePoint.transform, false);
+                    horizontal = 1f;
+                }
+                else
+                {
+                    horizontal = -1f;
                 }
                 //if (vertical == -1 && carSpeed < 0.1f)
                 //{
                 //    isObstacle = false;
                 //}
-                if (carSpeed > 3f)
+                if (carSpeed > 5f)
                 {
                     isObstacle = false;
-                    timerObstacle = 3f;
+                    timerObstacle = 5f;
                 }
             }
         }
@@ -311,12 +323,21 @@ public class AiCarController : CarControllerPro
             }
         }
     }
-    private static float GetRotationDirection(Transform myTransform, Transform target, bool toTarget)
+    public bool enableLogHorizontal;
+    private  float GetRotationDirection(Transform myTransform, Transform target, bool toTarget)
     {
         Vector3 targetDirection = (target.position - myTransform.position).normalized;
         float angle = Vector3.SignedAngle(myTransform.forward, targetDirection, Vector3.up);
-       
+       if(enableLogHorizontal)
+        {
+            //Debug.Log(angle);
+            if (angle < 12 && angle >= 0 || angle > -12 && angle <= 0) { return 0; }
+        }
         float rotationDirection = Mathf.Sign(angle);
+        //if (enableLogHorizontal)
+        //{
+        //    Debug.Log(rotationDirection);
+        //}
         if (toTarget)
         {
             return rotationDirection;

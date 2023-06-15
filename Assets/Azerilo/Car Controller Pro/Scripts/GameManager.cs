@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
 
             currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
             restartButton.onClick.AddListener(Restart);
-            Debug.Log("restart на полицейской сцене");
+            //Debug.Log("restart на полицейской сцене");
         }
 
     }

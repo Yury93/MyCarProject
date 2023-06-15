@@ -49,13 +49,19 @@ public class CheckPointItem : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         var car = other.GetComponentInParent<CarControllerPro>();
-        if (car != null)
+        if (car != null && car.fake == false)
         {
             var carIndex = TableRacers.instance.CheckPoints.CarsGo.IndexOf(car.gameObject);
+
+
          int currentPoint =  TableRacers.instance.CheckPoints.CarPositions[carIndex].GetNumberCheckPoint();
-            //Debug.Log($"{nCheckpointNumber + 1} == {currentPoint + 1}  будущие точки");
-            if(nCheckpointNumber + 1 == currentPoint + 1)
+
+            if(car.IsAI == false)
+            Debug.Log($"{nCheckpointNumber} == {currentPoint}  будущие точки");
+
+            if (nCheckpointNumber == currentPoint || nCheckpointNumber == currentPoint+1)
           TableRacers.instance.CheckPoints.CarPositions[carIndex].SetNumberCheckPoint( nCheckpointNumber + 1);
+       
         }
         if(isFinish && car.IsAI == false && nDistanceZ != 0)
         {

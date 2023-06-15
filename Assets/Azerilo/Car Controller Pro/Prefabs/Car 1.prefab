@@ -303,7 +303,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4192073598002278076}
   serializedVersion: 4
-  m_Mass: 1200
+  m_Mass: 1500
   m_Drag: 0.2
   m_AngularDrag: 2
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -348,8 +348,8 @@ MonoBehaviour:
   Wheel_Mesh_Rear_Right: {fileID: 3710631540093527620}
   gameManager: {fileID: 0}
   maxMotorTorque: 900
-  maxSteeringAngle: 15
-  maxSpeed: 120
+  maxSteeringAngle: 16.4
+  maxSpeed: 105.8
   brakePower: 5000
   CenterOfMass: {fileID: 5268366913065848230}
   carType: 2
@@ -380,6 +380,7 @@ MonoBehaviour:
   indexCurrentCheckPoint: 0
   CurrentPlace: 0
   police: 0
+  fake: 0
 --- !u!82 &4192073598002278051
 AudioSource:
   m_ObjectHideFlags: 0

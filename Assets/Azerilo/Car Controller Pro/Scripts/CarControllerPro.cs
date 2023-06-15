@@ -92,8 +92,9 @@ public class CarControllerPro : MonoBehaviour
     public bool IsAI => isAI;
     public int indexCurrentCheckPoint;
     public int CurrentPlace;
-    public bool police  ;
-  
+    public bool police ;
+    public bool fake;
+
     public void SetNextPoint()
     {
      
