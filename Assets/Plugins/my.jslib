@@ -23,14 +23,14 @@ mergeInto(LibraryManager.library, {
           // some action after close
           console.log("-----open ADV-js-function----")
        
-          myGameInstance.SendMessage('PushSystem', 'OpenEventAdvBetweenScenes');
+          myGameInstance.SendMessage('Yandex', 'OnOpenAdvFullscreen');
         },
 
         onClose: function() {
           // some action after close
           console.log("-----close ADV-js-function----")
          
-          myGameInstance.SendMessage('PushSystem', 'CloseAdvBetweenScenes');
+          myGameInstance.SendMessage('Yandex', 'OnCloseAdvFullscreen');
         },
         onError: function(error) {
           // some action on error

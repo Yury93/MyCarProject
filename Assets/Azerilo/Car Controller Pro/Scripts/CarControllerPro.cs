@@ -116,7 +116,7 @@ public class CarControllerPro : MonoBehaviour
             carColor = carSelection.GetColor();
         }
         carMeshes.ForEach(m => m.material.color = carColor);
-        if (police == false)
+        if (police == false && brakeLightLeft != null)
         {
             brakeLightLeftMat = brakeLightLeft.GetComponent<Renderer>().material;
             brakeLightRightMat = brakeLightRight.GetComponent<Renderer>().material;
@@ -172,7 +172,7 @@ public class CarControllerPro : MonoBehaviour
         carSpeed = carRigidbody.velocity.magnitude;                 // Calculate the car speed in meter/second                 
 
         carSpeedConverted = Mathf.Round(carSpeed * 3.6f);             // Convert the car speed from meter/second to kilometer/hour
-                                                                      // carSpeedRounded = Mathf.Round(carSpeed * 2.237f);         // Use this formula for mile/hour
+      if(  Application.isMobilePlatform == false )                                                 // carSpeedRounded = Mathf.Round(carSpeed * 2.237f);         // Use this formula for mile/hour
         CameraController.UpdateOffset(horizontal);
 
 
@@ -197,24 +197,28 @@ public class CarControllerPro : MonoBehaviour
             motorTorque = 0;
             Wheel_Collider_Rear_Left.brakeTorque = brakePower;
             Wheel_Collider_Rear_Right.brakeTorque = brakePower;
-
-            brakeLightLeftMat.SetColor("_EmissionColor", brakeColor);
-            brakeLightRightMat.SetColor("_EmissionColor", brakeColor);
-        }
-        else
-        {
-            // Else if vertical is pressed change brake light color and set brakeTorques to 0
-            if (vertical >= 0)
-            {
-                brakeLightLeftMat.SetColor("_EmissionColor", Color.black);
-                brakeLightRightMat.SetColor("_EmissionColor", Color.black);
-            }
-            else
+            if (brakeLightLeftMat != null)
             {
                 brakeLightLeftMat.SetColor("_EmissionColor", brakeColor);
                 brakeLightRightMat.SetColor("_EmissionColor", brakeColor);
             }
-
+        }
+        else
+        {
+            // Else if vertical is pressed change brake light color and set brakeTorques to 0
+            if (brakeLightLeftMat != null)
+            {
+                if (vertical >= 0)
+                {
+                    brakeLightLeftMat.SetColor("_EmissionColor", Color.black);
+                    brakeLightRightMat.SetColor("_EmissionColor", Color.black);
+                }
+                else
+                {
+                    brakeLightLeftMat.SetColor("_EmissionColor", brakeColor);
+                    brakeLightRightMat.SetColor("_EmissionColor", brakeColor);
+                }
+            }
             Wheel_Collider_Front_Left.brakeTorque = 0;
             Wheel_Collider_Front_Right.brakeTorque = 0;
             Wheel_Collider_Rear_Left.brakeTorque = 0;

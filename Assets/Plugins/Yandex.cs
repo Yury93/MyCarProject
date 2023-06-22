@@ -11,8 +11,7 @@ public class Yandex : MonoBehaviour
 {
     //[SerializeField] TextMeshProUGUI userName;
     //[SerializeField] RawImage userPhoto;
-    public Button helpButton;
-    public Button AdvButton;
+  
     [DllImport("__Internal")]
     private static extern void Hello();
     [DllImport("__Internal")]
@@ -30,7 +29,9 @@ public class Yandex : MonoBehaviour
     //private static extern void RateGame();
     public static Yandex instance;
     public Action<bool> OnShowAdvReward;
-    public void Init()
+    public Action<bool> onShowFullscreenAdv;
+    public Action onAddReward;
+    public void Awake()
     {
         if (instance == null)
         {
@@ -41,13 +42,14 @@ public class Yandex : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        Debug.Log("yan start method");
     }
 
-    private IEnumerator Start()
-    {
-        yield return new WaitForSeconds(0.3f);
-        HelloButton();
-    }
+    //private IEnumerator Start()
+    //{
+    //    yield return new WaitForSeconds(0.3f);
+    //    HelloButton();
+    //}
 
     //нажимаю на кнопку
     public void ShowAdvButton()
@@ -58,9 +60,8 @@ public class Yandex : MonoBehaviour
     //добавил награду
     public void AddReward()
     {
-        helpButton.gameObject.SetActive(true);
-        AdvButton.gameObject.SetActive(false);
 
+        onAddReward?.Invoke();
     }
     //видео с рекламой закрывается
     public void CloseAdvReward()
@@ -105,6 +106,18 @@ public class Yandex : MonoBehaviour
     public  void ShowAdvBetweenScenes()
     {
         ShowAdv();
+    }
+
+    public void OnOpenAdvFullscreen()
+    {
+       onShowFullscreenAdv?.Invoke(true);
+        Debug.Log("adv open ============================================= true");
+    }
+
+   public void  OnCloseAdvFullscreen()
+    {
+        onShowFullscreenAdv?.Invoke(false);
+        Debug.Log("adv open ============================================== false");
     }
 
     // Update is called once per frame

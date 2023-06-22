@@ -13,6 +13,7 @@ public class SceneLoader : MonoBehaviour
     
         public string sceneName;
         public Button button;
+
         public void Init() {
             button.onClick.AddListener(() =>
             {
@@ -24,16 +25,18 @@ public class SceneLoader : MonoBehaviour
     }
     [SerializeField] private List<ButtonLoader> buttonLoaders;
     [SerializeField] private Button continueButton;
+    public Transform continueButtonGo;
     private void Awake()    
     {
         buttonLoaders.ForEach(button => button.Init());
         //buttonLoaders[0].button.onClick.AddListener(() => { Social1.PlayerPrefs. });
 
         carSelection.maxOpenedIndexCar =  Social1.PlayerPrefs.GetInt("MAX_OPENNED_CAR");
-
+        continueButtonGo.gameObject.SetActive(false);
 
         if (Social1.PlayerPrefs.GetInt("MAX_OPENNED_CAR") > 0 || SeasonRacing.CurrentSeason > 0)
         {
+            continueButtonGo.gameObject.SetActive(true);
             continueButton.interactable = true;
             continueButton.onClick.AddListener(() => { Continue(); });
         }

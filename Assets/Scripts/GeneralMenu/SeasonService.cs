@@ -20,9 +20,19 @@ public class SeasonService : MonoBehaviour
             if(indexLastWin + 1 < seasons.Count) 
             {
                 seasons[indexLastWin + 1].isOpen = true ;
+                foreach (var se in seasons)
+                {
+                    se.isOpen = true ;
+                    if(seasons.IndexOf(se) == indexLastWin + 1)
+                    {
+                        break;
+                    }
+                }
             }
         }
+        seasons[0].isOpen = true ;
         seasons.ForEach(s => s.RefreshState());
         menuButton.onClick.AddListener(() => { SceneManager.LoadScene("GeneralMenu"); });
+        Yandex.instance.ShowAdvBetweenScenes();
     }
 }

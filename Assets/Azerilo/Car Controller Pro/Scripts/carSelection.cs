@@ -64,15 +64,19 @@ public class carSelection : MonoBehaviour
 
 
         cars.ToList().ForEach(c => c.Init());
+        if (activeCarIndex == maxOpenedIndexCar) { buttonRight.gameObject.SetActive(false); }
+        if (activeCarIndex > 0) { buttonLeft.gameObject.SetActive(true); }
+        if (activeCarIndex < maxOpenedIndexCar) { buttonRight.gameObject.SetActive(true); }
+        if (activeCarIndex == 0) { buttonLeft.gameObject.SetActive(false); }
     }
     public static void OpenNewCar()
     {
         maxOpenedIndexCar += 1;
-        Debug.Log("ACCESSED" + (maxOpenedIndexCar) + " КЛЮЧ КОТОРЫЙ зАПИСЫВАЕМ");
+        //Debug.Log("ACCESSED" + (maxOpenedIndexCar) + " КЛЮЧ КОТОРЫЙ зАПИСЫВАЕМ");
         Social1.PlayerPrefs.SetInt("ACCESSED" + (maxOpenedIndexCar).ToString(), maxOpenedIndexCar );
  
         Social1.PlayerPrefs.SetInt("MAX_OPENNED_CAR",maxOpenedIndexCar);
-        Debug.Log($" ИНДЕКС МАШИНЫ {Social1.PlayerPrefs.GetInt("ACCESSED" + (maxOpenedIndexCar))}/  МАКС ОТКРЫТЫЙ ИНДЕКС КАР {Social1.PlayerPrefs.GetInt("MAX_OPENNED_CAR",maxOpenedIndexCar)}");
+        //Debug.Log($" ИНДЕКС МАШИНЫ {Social1.PlayerPrefs.GetInt("ACCESSED" + (maxOpenedIndexCar))}/  МАКС ОТКРЫТЫЙ ИНДЕКС КАР {Social1.PlayerPrefs.GetInt("MAX_OPENNED_CAR",maxOpenedIndexCar)}");
     }
 
     private void SetCarColor(Button b)
@@ -133,6 +137,8 @@ public class carSelection : MonoBehaviour
 
             setCarName();
         }
+        if(activeCarIndex == maxOpenedIndexCar) { buttonRight.gameObject.SetActive(false); }
+        if (activeCarIndex > 0) { buttonLeft.gameObject.SetActive(true); }
     }
 
     // Shows the previous car to the user
@@ -149,6 +155,8 @@ public class carSelection : MonoBehaviour
             cars[activeCarIndex].gameObject.SetActive(true);
 
         }
+        if (activeCarIndex < maxOpenedIndexCar) { buttonRight.gameObject.SetActive(true); }
+        if (activeCarIndex == 0) { buttonLeft.gameObject.SetActive(false); }
 
         setCarName();
     }
@@ -159,7 +167,10 @@ public class carSelection : MonoBehaviour
        
         
     }
-
+    public static void SetCarIndex(int index)
+    {
+        PersistentData.selectedCarIndex = index;
+    }
     public void startMain()
     {
         PersistentData.selectedCarIndex = activeCarIndex;

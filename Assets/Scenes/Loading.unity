@@ -450,7 +450,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
     m_FontSize: 60
     m_FontStyle: 1
     m_BestFit: 0
@@ -600,7 +600,7 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
-  m_ScreenMatchMode: 0
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -677,6 +677,7 @@ GameObject:
   - component: {fileID: 1717859490}
   - component: {fileID: 1717859492}
   - component: {fileID: 1717859491}
+  - component: {fileID: 1717859493}
   m_Layer: 5
   m_Name: LoadingText
   m_TagString: Untagged
@@ -701,8 +702,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 2.4000244, y: 48.1}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -53, y: 48.1}
+  m_SizeDelta: {x: 1927.4637, y: 734.1708}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1717859491
 MonoBehaviour:
@@ -725,19 +726,21 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 30
+    m_Font: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
+    m_FontSize: 126
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 3
-    m_MaxSize: 40
-    m_Alignment: 0
+    m_MaxSize: 141
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u0417\u0410\u0413\u0420\u0423\u0417\u041A\u0410...\n"
+  m_Text: "\u0418\u0414\u0401\u0422 \u0417\u0410\u0413\u0420\u0423\u0417\u041A\u0410,
+    \u041F\u041E\u0416\u0410\u041B\u0423\u0419\u0421\u0422\u0410 \u041F\u041E\u0414\u041E\u0416\u0414\u0418\u0422\u0415
+    ...\n"
 --- !u!222 &1717859492
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -746,6 +749,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1717859489}
   m_CullTransparentMesh: 0
+--- !u!114 &1717859493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1717859489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 2.35, y: -2.44}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1863615585
 GameObject:
   m_ObjectHideFlags: 0

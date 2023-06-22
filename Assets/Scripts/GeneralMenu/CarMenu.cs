@@ -11,7 +11,7 @@ public class CarMenu : MonoBehaviour
     public int plPLayers;
     public void Init()
     {
-        Debug.Log(ACCESSED + indexCar + " ÊËŞ× ÊÎÒÎĞÛÉ ÏÎËÓ×ÀÅÌ---  ñàì èíäåêñ ---"+Social1.PlayerPrefs.GetInt(ACCESSED + indexCar));
+        //Debug.Log(ACCESSED + indexCar + " ÊËŞ× ÊÎÒÎĞÛÉ ÏÎËÓ×ÀÅÌ---  ñàì èíäåêñ ---"+Social1.PlayerPrefs.GetInt(ACCESSED + indexCar));
         plPLayers = Social1.PlayerPrefs.GetInt(ACCESSED + indexCar);
         if(plPLayers  == indexCar)
         {

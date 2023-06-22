@@ -50,4 +50,28 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Season9.unity
     guid: b5f67d9e96cf41d4aa2da8f68ea7b1c4
+  - enabled: 1
+    path: Assets/Scenes/Season10.unity
+    guid: 86ba9bde57da8e144b7bea9bea675403
+  - enabled: 1
+    path: Assets/Scenes/Season11.unity
+    guid: aba720f54b62123469307c8ed2301552
+  - enabled: 1
+    path: Assets/Scenes/Season12.unity
+    guid: 288793d98a1a6c34e8da7809059c83f3
+  - enabled: 1
+    path: Assets/Scenes/Season13.unity
+    guid: 8cf287af13a2ff143a81213d7e6b888c
+  - enabled: 1
+    path: Assets/Scenes/Season14.unity
+    guid: 1a4e71ba28f24af40a39de28af74c653
+  - enabled: 1
+    path: Assets/Scenes/Season15.unity
+    guid: 8a461b1953c50cc4d974afd6120eb481
+  - enabled: 1
+    path: Assets/Scenes/Season16.unity
+    guid: cfb9ec8a82102f04c9d34cc3f527c0a3
+  - enabled: 1
+    path: Assets/Scenes/Season17.unity
+    guid: 62775c950b16ba34ba64e4e759e6acf3
   m_configObjects: {}

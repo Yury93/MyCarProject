@@ -26,7 +26,9 @@ public class CheckPointItem : MonoBehaviour
         {
             nDistChk.Add(0);
         }
-        if(continueButton != null) 
+        if (canvasFinal != null)
+            canvasFinal.SetActive(false);
+        if (continueButton != null) 
         continueButton.onClick.AddListener(() => SceneManager.LoadScene(Loading.sceneName));
     }
 
@@ -57,7 +59,7 @@ public class CheckPointItem : MonoBehaviour
          int currentPoint =  TableRacers.instance.CheckPoints.CarPositions[carIndex].GetNumberCheckPoint();
 
             if(car.IsAI == false)
-            Debug.Log($"{nCheckpointNumber} == {currentPoint}  будущие точки");
+            Debug.Log("0_o");
 
             if (nCheckpointNumber == currentPoint || nCheckpointNumber == currentPoint+1)
           TableRacers.instance.CheckPoints.CarPositions[carIndex].SetNumberCheckPoint( nCheckpointNumber + 1);

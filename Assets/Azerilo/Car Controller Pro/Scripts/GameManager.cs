@@ -18,7 +18,8 @@ public class GameManager : MonoBehaviour
         ArrowKeys,
         ArrowTouch,
         gyroscope,
-        wheel
+        wheel,
+        mobile
     }
     public Cinemachine.CinemachineVirtualCamera virtualCamera;
    public Cinemachine.CinemachineTransposer transposer;
@@ -80,6 +81,7 @@ public class GameManager : MonoBehaviour
     public int currentSceneIndex;
     public Button restartButton;
     public int SeasonIndex;
+    public bool mobilePlatform;
 
     private void Awake()
     {
@@ -90,14 +92,15 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         StartUp();
-        if (Application.isMobilePlatform == false)
+        if (Application.isMobilePlatform == false )
         {
             buttons.ForEach(b => b.gameObject.SetActive(false));
+           
 
         }
         else if ((Application.isMobilePlatform))
         {
-
+            controller = GameManager.controllerType.mobile;
         }
         if (policeScene == false)
         {
@@ -109,6 +112,10 @@ public class GameManager : MonoBehaviour
             restartButton.onClick.AddListener(Restart);
             //Debug.Log("restart на полицейской сцене");
         }
+        //if(mobilePlatform == true) {
+        //    buttons.ForEach(b => b.gameObject.SetActive(true));
+        //    controller = GameManager.controllerType.mobile;
+        //}
 
     }
 
@@ -135,7 +142,7 @@ public class GameManager : MonoBehaviour
         timeStartText.transform.localScale = startScale;
         timeStartText.transform.DOScale(new Vector3(startScale.x + 3, startScale.y + 3), 1f);
         timeStartText.color = Color.green;
-        timeStartText.text = "Старт!!!";
+        timeStartText.text = "Гоу!!!";
         startFlag.Active(true);
         yield return new WaitForSeconds(1f);
         timeStartText.gameObject.SetActive(false);
@@ -154,8 +161,7 @@ public class GameManager : MonoBehaviour
         smoothTo(smoothTarget);
 
         // If the current platform is editor or windows get vertical input values
-        transposer.m_FollowOffset = new Vector3(player.CameraController.offsetX, transposer.m_FollowOffset.y, transposer.m_FollowOffset.z);
-        virtualCamera.m_Lens.Dutch = player.CameraController.datch;
+        
 
         if ((Application.isMobilePlatform == false))
         {
@@ -167,21 +173,27 @@ public class GameManager : MonoBehaviour
             else
                 hBrake = false;
 
+            transposer.m_FollowOffset = new Vector3(player.CameraController.offsetX, transposer.m_FollowOffset.y, transposer.m_FollowOffset.z);
+            virtualCamera.m_Lens.Dutch = player.CameraController.datch;
+
 
         }
-        else if ((Application.isMobilePlatform) )
+        else if ((Application.isMobilePlatform) || mobilePlatform)
+
         {
             if (gas_pedal.Pressed)
             {
                 VerticalInput = 1;
-                
+
             }
             else if (brake_reverse_pedal.Pressed)
             {
                 VerticalInput = -1;
             }
             else
+            {
                 VerticalInput = 0;
+            }
 
             if (handbrake.Pressed)
                 hBrake = true;
@@ -219,23 +231,23 @@ public class GameManager : MonoBehaviour
             case controllerType.wheel:
                 HorizontalInput = sw.horizontal;
                 break;
-            //case controllerType.mobile:
-            //    if (rightArrow.Pressed)
-            //    {
-            //        smoothTarget = 1;
-            //        HorizontalInput = smoothResult;
-            //    }
-            //    else if (leftArrow.Pressed)
-            //    {
-            //        smoothTarget = -1;
-            //        HorizontalInput = smoothResult;
-            //    }
-            //    else
-            //    {
-            //        smoothTarget = 0;
-            //        HorizontalInput = smoothResult;
-            //    }
-            //    break;
+            case controllerType.mobile:
+                if (rightArrow.Pressed)
+                {
+                    smoothTarget = 1;
+                    HorizontalInput = smoothResult;
+                }
+                else if (leftArrow.Pressed)
+                {
+                    smoothTarget = -1;
+                    HorizontalInput = smoothResult;
+                }
+                else
+                {
+                    smoothTarget = 0;
+                    HorizontalInput = smoothResult;
+                }
+                break;
         }
 
         // Showing the car speed on the UI
@@ -265,11 +277,11 @@ public class GameManager : MonoBehaviour
             {
                 timeStopSpeedByPoliceScene += Time.deltaTime;
                 //Debug.Log(timeStopSpeedByPoliceScene + " > 6f");
-                if(timeStopSpeedByPoliceScene > 4f)
+                if(timeStopSpeedByPoliceScene > 15f)
                 {
                     //Debug.Log("Тебя поймали копы");
                     if (EndPoliceScene.instance.end == EndType.none)
-                        CanvasInfo.instance.SetInfoText("Тебя поймали копы");
+                        CanvasInfo.instance.SetInfoText("Пойман копами!");
 
                     policeWin = true;
                     EndPoliceScene.instance.SetTypeEnd(EndType.detainedByPolice);
@@ -383,7 +395,7 @@ public class GameManager : MonoBehaviour
         // Read from the PersistentData class that which car is selected by the user and instantiate it
         car = (Instantiate(cars[PersistentData.selectedCarIndex], startPosition.position, startPosition.rotation)).transform;
         player = car.gameObject.GetComponent<CarControllerPro>();
-        player.name = "Игрок";
+        player.name = "Вы";
         transposer = virtualCamera.GetCinemachineComponent<CinemachineTransposer>();
 
        

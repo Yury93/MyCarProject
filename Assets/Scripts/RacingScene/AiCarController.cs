@@ -257,7 +257,7 @@ public class AiCarController : CarControllerPro
         }
     }
 
-    GameObject obstaclePoint = new GameObject();
+    GameObject obstaclePoint;
     private void GoAroundObstacle(bool isMobileTarget)
     {
         GameObject obstacle = GetNearObstacle();
@@ -300,6 +300,7 @@ public class AiCarController : CarControllerPro
                 {
                     isObstacle = false;
                     timerObstacle = 5f;
+                    Destroy(obstaclePoint);
                 }
             }
         }

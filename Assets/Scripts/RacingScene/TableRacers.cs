@@ -58,7 +58,7 @@ public class TableRacers : MonoBehaviour
                 //Debug.Log(i);
             }
             //Debug.Log("функция назначение мест прошла");
-            Debug.Log("место игрока =" + TableRacers.instance.GetPlayerByTable().Place);
+            Debug.Log("player position =" + TableRacers.instance.GetPlayerByTable().Place);
             var place = TableRacers.instance.GetPlayerByTable().Place;
             //Debug.Log(place + " место которое занял игрок ");
 
